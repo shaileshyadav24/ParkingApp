@@ -58,6 +58,9 @@
 		4D1B4A3025BA4470005CABE8 /* ParkingApp */ = {
 			isa = PBXGroup;
 			children = (
+				4D1B4A4B25BA46F3005CABE8 /* modals */,
+				4D1B4A4A25BA46EC005CABE8 /* controllers */,
+				4D1B4A4925BA46E5005CABE8 /* views */,
 				4D1B4A3125BA4470005CABE8 /* AppDelegate.swift */,
 				4D1B4A3325BA4470005CABE8 /* SceneDelegate.swift */,
 				4D1B4A3525BA4470005CABE8 /* ContentView.swift */,
@@ -76,6 +79,27 @@
 				4D1B4A3D25BA4471005CABE8 /* Preview Assets.xcassets */,
 			);
 			path = "Preview Content";
+			sourceTree = "<group>";
+		};
+		4D1B4A4925BA46E5005CABE8 /* views */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = views;
+			sourceTree = "<group>";
+		};
+		4D1B4A4A25BA46EC005CABE8 /* controllers */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = controllers;
+			sourceTree = "<group>";
+		};
+		4D1B4A4B25BA46F3005CABE8 /* modals */ = {
+			isa = PBXGroup;
+			children = (
+			);
+			path = modals;
 			sourceTree = "<group>";
 		};
 /* End PBXGroup section */
