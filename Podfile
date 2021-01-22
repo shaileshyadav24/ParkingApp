@@ -6,5 +6,17 @@ target 'ParkingApp' do
   use_frameworks!
 
   # Pods for ParkingApp
+  
+  #Firebase
+  pod 'Firebase'
+
+  #Cloud Firestore
+  pod 'Firebase/Firestore'
+
+  #Swift extensions
+  pod 'FirebaseFirestoreSwift'
+  
+  #Firebase Auth
+  pod 'Firebase/Auth'
 
 end
