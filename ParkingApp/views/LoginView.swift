@@ -27,7 +27,7 @@ struct LoginView: View {
                 } else {
                     if((authData?.user.isEmailVerified) != nil) {
                         self.isLogin.toggle()
-                        UserDefaults.standard.set(self.emailAddress, forKey: "emailAddress")
+                        UserDefaults.standard.set(self.emailAddress.lowercased(), forKey: "emailAddress")
                     }
                 }
             }
