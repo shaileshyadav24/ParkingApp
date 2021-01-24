@@ -17,6 +17,7 @@ struct LoginView: View {
     @State var displayErrorMessage:String  = ""
     @State var isErrorMessage: Bool = false
     
+    // THis method is to validate email and password and logs in user
     func onSubmitClicked() {
         self.isErrorMessage = false
         if self.emailAddress != "" && self.password != "" {

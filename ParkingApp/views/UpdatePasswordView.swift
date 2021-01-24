@@ -16,6 +16,7 @@ struct UpdatePasswordView: View {
     @State private var currentPassword: String = ""
     @State private var newPassword: String = ""
     
+    // THis method is to validate passwords and proceed to update
     func validateAndUpdatePassword() {
         self.isErrorMessage = true
         self.isMessageAvailable = false
@@ -33,6 +34,7 @@ struct UpdatePasswordView: View {
         }
     }
     
+    // This method is to reauthenticate user and update password of user
     func revalidateUserAndUpdatePassword() {
         let user = Auth.auth().currentUser
         let credential: AuthCredential = EmailAuthProvider.credential(withEmail: self.profileController.profile.email, password: self.currentPassword)

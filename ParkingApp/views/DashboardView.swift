@@ -14,6 +14,7 @@ struct DashboardView: View {
     @State private var showPopover = false
     @State private var isLogout: Bool = false
     
+    // This method is to logout user
     func onLogout() {
         print("Loggin out ised")
         let firebaseAuth = Auth.auth()
