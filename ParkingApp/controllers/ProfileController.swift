@@ -138,5 +138,8 @@ class ProfileController: ObservableObject {
             }
     }
     
+    func resetProfile() {
+        self.profile = Profile()
+    }
     
 }

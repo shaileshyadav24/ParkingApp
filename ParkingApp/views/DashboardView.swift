@@ -20,6 +20,7 @@ struct DashboardView: View {
         do {
             try firebaseAuth.signOut()
             UserDefaults.standard.removeObject(forKey: "emailAddress")
+            self.profileController.resetProfile()
             self.isLogout.toggle()
         } catch let error as NSError {
             print("Error in logout", error.localizedDescription)
