@@ -18,6 +18,7 @@ struct LoginView: View {
     @State var isErrorMessage: Bool = false
     
     func onSubmitClicked() {
+        self.isErrorMessage = false
         if self.emailAddress != "" && self.password != "" {
             Auth.auth().signIn(withEmail: self.emailAddress, password: self.password) { (authData, error) in
                 if let e = error {
