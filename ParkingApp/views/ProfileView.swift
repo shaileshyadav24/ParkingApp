@@ -132,8 +132,8 @@ struct ProfileView: View {
                         .padding(.top, 10)
                     VStack{
                         Form {
-                            Section(header: Text("Current Password"), content: {
-                                SecureField("Please enter current password",text: self.$currentPassword)
+                            Section(header: Text("Password"), content: {
+                                SecureField("Please enter password",text: self.$currentPassword)
                             })
                         }
                         Text(self.displayMessageString)
