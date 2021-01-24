@@ -82,6 +82,7 @@ struct RegistrationView: View {
         Text("Registration")
             .fontWeight(.bold)
             .font(.title)
+            .padding(.top, 10)
         VStack{
             Form {
                 Section(header: Text("Name"), content: {

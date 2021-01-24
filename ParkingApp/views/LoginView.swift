@@ -46,7 +46,7 @@ struct LoginView: View {
             
             VStack {
                 NavigationLink(
-                    destination: RegistrationView().environmentObject(profileController),
+                    destination: RegistrationView().environmentObject(profileController).navigationBarTitle("", displayMode: .inline),
                     isActive: $isRegistration,
                     label: {
                     })
@@ -100,9 +100,9 @@ struct LoginView: View {
                 
                 Spacer()
                 
-            }.padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+            }
+            .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
         }
-        
     }
 }
 

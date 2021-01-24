@@ -116,7 +116,7 @@ struct EditProfileView: View {
             Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Cancel")
+                Text(self.isErrorMessage ? "Cancel" :"Close")
                     .font(.title)
                     .foregroundColor(.white)
                     .padding()
