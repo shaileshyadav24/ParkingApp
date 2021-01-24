@@ -56,7 +56,7 @@ class ProfileController: ObservableObject {
                 (querySnapshot, err) in
                 
                 guard let snapshot = querySnapshot else {
-                    print(#function, "Error fetching snapshot results", err)
+                    print("Error fetching snapshot results", err)
                     return
                 }
                 
