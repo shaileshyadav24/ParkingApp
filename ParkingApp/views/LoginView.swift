@@ -102,6 +102,8 @@ struct LoginView: View {
                 
             }
             .padding(/*@START_MENU_TOKEN@*/.all/*@END_MENU_TOKEN@*/, /*@START_MENU_TOKEN@*/10/*@END_MENU_TOKEN@*/)
+            .padding(.top, 50)
+            .navigationBarHidden(true)
         }
     }
 }
