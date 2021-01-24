@@ -12,6 +12,7 @@ struct ProfileView: View {
     @EnvironmentObject var profileController: ProfileController
     @State private var showEditProfileView = false
     @State private var showDeleteProfilePopup = false
+    @State private var showPasswordChangeView = false
     @State private var isLogout = false
     
     
@@ -73,24 +74,22 @@ struct ProfileView: View {
                         .frame(width: 300, height: 40)
                         .background(Color.yellow)
                         .cornerRadius(10.0)
-                })
-//                Button(action: {
-//                    self.showDeleteProfilePopup = true
-//                }, label: {
-//                    Text("Change password")
-//                        .font(.title)
-//                        .foregroundColor(.white)
-//                        .padding()
-//                        .frame(width: 300, height: 40)
-//                        .background(Color.yellow)
-//                        .cornerRadius(10.0)
-//                }).alert(isPresented: $showDeleteProfilePopup) {
-//                    Alert(title: Text("Delete"), message: Text("Are you sure want to delete your account?"),  primaryButton: .destructive(Text("Yes"), action: {
-//                        initiateDeleteUser()
-//                    }), secondaryButton: .default(Text("No"), action: {
-//                        self.showDeleteProfilePopup = false
-//                    }))
-//                }
+                }).sheet(isPresented: self.$showEditProfileView){
+                    EditProfileView().environmentObject(profileController)
+                }
+                Button(action: {
+                    self.showPasswordChangeView = true
+                }, label: {
+                    Text("Change password")
+                        .font(.title)
+                        .foregroundColor(.white)
+                        .padding()
+                        .frame(width: 300, height: 40)
+                        .background(Color.yellow)
+                        .cornerRadius(10.0)
+                }).sheet(isPresented: self.$showPasswordChangeView){
+                    UpdatePasswordView().environmentObject(profileController)
+                }
                 Button(action: {
                     self.showDeleteProfilePopup = true
                 }, label: {
@@ -109,8 +108,6 @@ struct ProfileView: View {
                         self.showDeleteProfilePopup = false
                     }))
                 }
-            }.sheet(isPresented: self.$showEditProfileView){
-                EditProfileView().environmentObject(profileController)
             }
         }
     }

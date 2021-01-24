@@ -76,8 +76,6 @@ class ProfileController: ObservableObject {
     }
     
     
-    
-    
     func searchIfEmailExit(email: String, completionHndler: @escaping(_ isRecordAvailable: Bool) -> Void) {
         var isRecordAvailable = false
         self.store.collection(COLLECTION_PARKING).whereField("email", isEqualTo: email)

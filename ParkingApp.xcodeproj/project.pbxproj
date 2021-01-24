@@ -23,6 +23,7 @@
 		4DFF9BC625BD721300EA1AA4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BC525BD721300EA1AA4 /* ProfileView.swift */; };
 		4DFF9BC925BD722200EA1AA4 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BC825BD722200EA1AA4 /* DashboardView.swift */; };
 		4DFF9BE325BDBEB300EA1AA4 /* EditProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BE225BDBEB300EA1AA4 /* EditProfileView.swift */; };
+		4DFF9BE625BDE43C00EA1AA4 /* UpdatePasswordView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BE525BDE43C00EA1AA4 /* UpdatePasswordView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -45,6 +46,7 @@
 		4DFF9BC525BD721300EA1AA4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
 		4DFF9BC825BD722200EA1AA4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		4DFF9BE225BDBEB300EA1AA4 /* EditProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = EditProfileView.swift; sourceTree = "<group>"; };
+		4DFF9BE525BDE43C00EA1AA4 /* UpdatePasswordView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = UpdatePasswordView.swift; sourceTree = "<group>"; };
 		8731386761538EFF7A5DE87A /* Pods-ParkingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParkingApp.debug.xcconfig"; path = "Target Support Files/Pods-ParkingApp/Pods-ParkingApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -121,6 +123,7 @@
 				4DFF9BC225BD720700EA1AA4 /* RegistrationView.swift */,
 				4DFF9BC825BD722200EA1AA4 /* DashboardView.swift */,
 				4DFF9BE225BDBEB300EA1AA4 /* EditProfileView.swift */,
+				4DFF9BE525BDE43C00EA1AA4 /* UpdatePasswordView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -265,6 +268,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				4DFF9BE625BDE43C00EA1AA4 /* UpdatePasswordView.swift in Sources */,
 				4D1B4A3925BA4470005CABE8 /* ParkingApp.xcdatamodeld in Sources */,
 				4DFF9BC625BD721300EA1AA4 /* ProfileView.swift in Sources */,
 				4DFF9BC025BD71F800EA1AA4 /* LoginView.swift in Sources */,
