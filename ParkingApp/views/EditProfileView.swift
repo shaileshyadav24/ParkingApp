@@ -51,7 +51,6 @@ struct EditProfileView: View {
             } else {
                 Auth.auth().currentUser?.updateEmail(to: self.emailAddress.lowercased()) { error in
                     if let e = error {
-                        print("Error while authenticate", e.localizedDescription)
                         self.isMessageAvailable = true
                         self.displayMessageString = e.localizedDescription
                     } else {
@@ -72,6 +71,7 @@ struct EditProfileView: View {
         Text("Update Profile")
             .fontWeight(.bold)
             .font(.title)
+            .padding(.top, 10)
         VStack{
             Form {
                 Section(header: Text("Name"), content: {
@@ -116,7 +116,7 @@ struct EditProfileView: View {
             Button(action: {
                 self.presentationMode.wrappedValue.dismiss()
             }, label: {
-                Text("Cancel")
+                Text(self.isErrorMessage ? "Cancel" :"Close")
                     .font(.title)
                     .foregroundColor(.white)
                     .padding()

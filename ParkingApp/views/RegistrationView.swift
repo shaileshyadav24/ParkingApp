@@ -34,7 +34,7 @@ struct RegistrationView: View {
         if(self.name != "" && self.emailAddress != "" && self.password != "" && self.confirmPassword != "" &&
             self.carPlateNumber != "" && self.phoneNumber != "") {
             if(textFieldValidatorEmail(email: self.emailAddress)) {
-                if(self.password.count >= 4) {
+                if(self.password.count >= 6) {
                     if(self.password == self.confirmPassword) {
                         self.saveUserInFirebase()
                     } else {
@@ -43,7 +43,7 @@ struct RegistrationView: View {
                     }
                 } else {
                     self.isMessageAvailable = true
-                    self.displayMessageString = "Password must be more than 3 characters"
+                    self.displayMessageString = "Password must be more than 5 characters"
                 }
             } else {
                 self.isMessageAvailable = true
@@ -82,6 +82,7 @@ struct RegistrationView: View {
         Text("Registration")
             .fontWeight(.bold)
             .font(.title)
+            .padding(.top, 10)
         VStack{
             Form {
                 Section(header: Text("Name"), content: {

@@ -37,10 +37,9 @@ struct DashboardView: View {
                         label: {
                         })
                     ProfileView().environmentObject(profileController)
-                        .tabItem {
-                            Image(systemName: "contacts.fill")
-                            Text("Profile")
-                        }
+                }.tabItem {
+                    Image(systemName: "person")
+                    Text("Profile")
                 }
             }
             .onAppear() {
