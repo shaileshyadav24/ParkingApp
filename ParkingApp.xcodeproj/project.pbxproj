@@ -3,7 +3,7 @@
 	archiveVersion = 1;
 	classes = {
 	};
-	objectVersion = 50;
+	objectVersion = 51;
 	objects = {
 
 /* Begin PBXBuildFile section */
@@ -15,6 +15,13 @@
 		4D1B4A3B25BA4471005CABE8 /* Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B4A3A25BA4471005CABE8 /* Assets.xcassets */; };
 		4D1B4A3E25BA4471005CABE8 /* Preview Assets.xcassets in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B4A3D25BA4471005CABE8 /* Preview Assets.xcassets */; };
 		4D1B4A4125BA4471005CABE8 /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 4D1B4A3F25BA4471005CABE8 /* LaunchScreen.storyboard */; };
+		4DFF9BA025BD6DA900EA1AA4 /* GoogleService-Info.plist in Resources */ = {isa = PBXBuildFile; fileRef = 4DFF9B9F25BD6DA900EA1AA4 /* GoogleService-Info.plist */; };
+		4DFF9BBA25BD6E8C00EA1AA4 /* ProfileController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BB925BD6E8C00EA1AA4 /* ProfileController.swift */; };
+		4DFF9BBD25BD6ED000EA1AA4 /* Profile.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BBC25BD6ED000EA1AA4 /* Profile.swift */; };
+		4DFF9BC025BD71F800EA1AA4 /* LoginView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BBF25BD71F800EA1AA4 /* LoginView.swift */; };
+		4DFF9BC325BD720700EA1AA4 /* RegistrationView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BC225BD720700EA1AA4 /* RegistrationView.swift */; };
+		4DFF9BC625BD721300EA1AA4 /* ProfileView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BC525BD721300EA1AA4 /* ProfileView.swift */; };
+		4DFF9BC925BD722200EA1AA4 /* DashboardView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4DFF9BC825BD722200EA1AA4 /* DashboardView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -29,6 +36,13 @@
 		4D1B4A3D25BA4471005CABE8 /* Preview Assets.xcassets */ = {isa = PBXFileReference; lastKnownFileType = folder.assetcatalog; path = "Preview Assets.xcassets"; sourceTree = "<group>"; };
 		4D1B4A4025BA4471005CABE8 /* Base */ = {isa = PBXFileReference; lastKnownFileType = file.storyboard; name = Base; path = Base.lproj/LaunchScreen.storyboard; sourceTree = "<group>"; };
 		4D1B4A4225BA4471005CABE8 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
+		4DFF9B9F25BD6DA900EA1AA4 /* GoogleService-Info.plist */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.plist.xml; path = "GoogleService-Info.plist"; sourceTree = "<group>"; };
+		4DFF9BB925BD6E8C00EA1AA4 /* ProfileController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileController.swift; sourceTree = "<group>"; };
+		4DFF9BBC25BD6ED000EA1AA4 /* Profile.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Profile.swift; sourceTree = "<group>"; };
+		4DFF9BBF25BD71F800EA1AA4 /* LoginView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LoginView.swift; sourceTree = "<group>"; };
+		4DFF9BC225BD720700EA1AA4 /* RegistrationView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = RegistrationView.swift; sourceTree = "<group>"; };
+		4DFF9BC525BD721300EA1AA4 /* ProfileView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ProfileView.swift; sourceTree = "<group>"; };
+		4DFF9BC825BD722200EA1AA4 /* DashboardView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DashboardView.swift; sourceTree = "<group>"; };
 		8731386761538EFF7A5DE87A /* Pods-ParkingApp.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParkingApp.debug.xcconfig"; path = "Target Support Files/Pods-ParkingApp/Pods-ParkingApp.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -78,6 +92,7 @@
 				4D1B4A4925BA46E5005CABE8 /* views */,
 				4D1B4A3125BA4470005CABE8 /* AppDelegate.swift */,
 				4D1B4A3325BA4470005CABE8 /* SceneDelegate.swift */,
+				4DFF9B9F25BD6DA900EA1AA4 /* GoogleService-Info.plist */,
 				4D1B4A3525BA4470005CABE8 /* ContentView.swift */,
 				4D1B4A3A25BA4471005CABE8 /* Assets.xcassets */,
 				4D1B4A3F25BA4471005CABE8 /* LaunchScreen.storyboard */,
@@ -99,6 +114,10 @@
 		4D1B4A4925BA46E5005CABE8 /* views */ = {
 			isa = PBXGroup;
 			children = (
+				4DFF9BBF25BD71F800EA1AA4 /* LoginView.swift */,
+				4DFF9BC525BD721300EA1AA4 /* ProfileView.swift */,
+				4DFF9BC225BD720700EA1AA4 /* RegistrationView.swift */,
+				4DFF9BC825BD722200EA1AA4 /* DashboardView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -106,6 +125,7 @@
 		4D1B4A4A25BA46EC005CABE8 /* controllers */ = {
 			isa = PBXGroup;
 			children = (
+				4DFF9BB925BD6E8C00EA1AA4 /* ProfileController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -113,6 +133,7 @@
 		4D1B4A4B25BA46F3005CABE8 /* modals */ = {
 			isa = PBXGroup;
 			children = (
+				4DFF9BBC25BD6ED000EA1AA4 /* Profile.swift */,
 			);
 			path = modals;
 			sourceTree = "<group>";
@@ -123,7 +144,6 @@
 				8731386761538EFF7A5DE87A /* Pods-ParkingApp.debug.xcconfig */,
 				209E6C766AFE87FD98EC5136 /* Pods-ParkingApp.release.xcconfig */,
 			);
-			name = Pods;
 			path = Pods;
 			sourceTree = "<group>";
 		};
@@ -187,6 +207,7 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D1B4A4125BA4471005CABE8 /* LaunchScreen.storyboard in Resources */,
+				4DFF9BA025BD6DA900EA1AA4 /* GoogleService-Info.plist in Resources */,
 				4D1B4A3E25BA4471005CABE8 /* Preview Assets.xcassets in Resources */,
 				4D1B4A3B25BA4471005CABE8 /* Assets.xcassets in Resources */,
 			);
@@ -242,9 +263,15 @@
 			buildActionMask = 2147483647;
 			files = (
 				4D1B4A3925BA4470005CABE8 /* ParkingApp.xcdatamodeld in Sources */,
+				4DFF9BC625BD721300EA1AA4 /* ProfileView.swift in Sources */,
+				4DFF9BC025BD71F800EA1AA4 /* LoginView.swift in Sources */,
+				4DFF9BBD25BD6ED000EA1AA4 /* Profile.swift in Sources */,
 				4D1B4A3225BA4470005CABE8 /* AppDelegate.swift in Sources */,
 				4D1B4A3425BA4470005CABE8 /* SceneDelegate.swift in Sources */,
+				4DFF9BBA25BD6E8C00EA1AA4 /* ProfileController.swift in Sources */,
+				4DFF9BC925BD722200EA1AA4 /* DashboardView.swift in Sources */,
 				4D1B4A3625BA4470005CABE8 /* ContentView.swift in Sources */,
+				4DFF9BC325BD720700EA1AA4 /* RegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
