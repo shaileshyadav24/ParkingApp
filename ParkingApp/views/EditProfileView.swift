@@ -57,6 +57,7 @@ struct EditProfileView: View {
                         UserDefaults.standard.set(self.emailAddress.lowercased(), forKey: "emailAddress")
                         self.profileController.updateProfile(id: self.profileController.profile.id!,
                                                              profile: Profile(email: self.emailAddress, name: self.name, contactNumber: self.phoneNumber, carPlateNumber: self.carPlateNumber))
+                        self.profileController.fetchRecordUsingEmail(email: self.emailAddress.lowercased())
                         self.isErrorMessage = false
                         self.isMessageAvailable = true
                         self.displayMessageString = "Account updated successfully"
