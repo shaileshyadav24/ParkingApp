@@ -65,9 +65,10 @@ struct ProfileView: View {
                 Text("\(self.profileController.profile.name)")
             }.padding(.bottom, 10)
             HStack(alignment: .firstTextBaseline , spacing: 1) {
-                Text("Email Address: ")
+                Text("Email: ")
                     .fontWeight(.bold)
                 Text("\(self.profileController.profile.email)")
+                
             }.padding(.bottom, 10)
             HStack(alignment: .firstTextBaseline , spacing: 1) {
                 Text("Phone: ")
