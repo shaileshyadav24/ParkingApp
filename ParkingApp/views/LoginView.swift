@@ -2,7 +2,7 @@
 //  LoginView.swift
 //  ParkingApp
 //
-//  Created by Sargam on 24/01/21.
+//  Created by Shailesh Yadav, 101332535 on 24/01/21.
 //
 
 import SwiftUI
@@ -17,6 +17,7 @@ struct LoginView: View {
     @State var displayErrorMessage:String  = ""
     @State var isErrorMessage: Bool = false
     
+    // THis method is to validate email and password and logs in user
     func onSubmitClicked() {
         self.isErrorMessage = false
         if self.emailAddress != "" && self.password != "" {

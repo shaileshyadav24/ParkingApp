@@ -2,7 +2,7 @@
 //  ProfileController.swift
 //  ParkingApp
 //
-//  Created by Sargam on 24/01/21.
+//  Created by Shailesh Yadav, 101332535 on 24/01/21.
 //
 
 import Foundation
@@ -19,7 +19,7 @@ class ProfileController: ObservableObject {
         self.store = database
     }
     
-    
+    // To add new profile in DB
     func insertProfile(newProfile: Profile){
         do{
             _ = try self.store.collection(COLLECTION_PARKING).addDocument(from: newProfile)
@@ -28,6 +28,7 @@ class ProfileController: ObservableObject {
         }
     }
     
+    // To update profile in DB using ID
     func updateProfile(id: String, profile: Profile){
         print("ID is for")
         self.store.collection(COLLECTION_PARKING)
@@ -46,10 +47,7 @@ class ProfileController: ObservableObject {
             }
     }
     
-    func getProfileOfLoggedInUser() -> Profile {
-        return self.profile
-    }
-    
+    // To fetch record using email
     func fetchRecordUsingEmail(email: String) {
         self.store.collection(COLLECTION_PARKING).whereField("email", isEqualTo: email)
             .getDocuments() {
@@ -76,6 +74,7 @@ class ProfileController: ObservableObject {
     }
     
     
+    // To validate if email exist
     func searchIfEmailExit(email: String, completionHndler: @escaping(_ isRecordAvailable: Bool) -> Void) {
         var isRecordAvailable = false
         self.store.collection(COLLECTION_PARKING).whereField("email", isEqualTo: email)
@@ -91,6 +90,7 @@ class ProfileController: ObservableObject {
             }
     }
     
+    // To validate if email exist for logged in user
     func searchIfEmailExitForExistingUser(email: String, id: String, completionHndler: @escaping(_ isRecordAvailable: Bool) -> Void) {
         var isRecordAvailable = false
         self.store.collection(COLLECTION_PARKING).whereField("email", isEqualTo: email)
@@ -124,6 +124,7 @@ class ProfileController: ObservableObject {
     }
     
     
+    // To delete profile using ID
     func deleteProfile(id: String){
         self.store.collection(COLLECTION_PARKING)
             .document(id)
@@ -136,6 +137,7 @@ class ProfileController: ObservableObject {
             }
     }
     
+    // To reset profile variable after logout
     func resetProfile() {
         self.profile = Profile()
     }

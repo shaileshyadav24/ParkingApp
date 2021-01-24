@@ -2,7 +2,7 @@
 //  ProfileView.swift
 //  ParkingApp
 //
-//  Created by Sargam on 24/01/21.
+//  Created by Shailesh Yadav, 101332535 on 24/01/21.
 //
 
 import SwiftUI
@@ -20,6 +20,7 @@ struct ProfileView: View {
     @State private var isMessageAvailable: Bool = false
     @State private var displayMessageString: String = ""
     
+    // THis method will reautheticate user and then delete entry from Firebase Authenticator and FIrebase DB
     func initiateDeleteUser() {
         self.isErrorMessage = true
         self.isMessageAvailable = false

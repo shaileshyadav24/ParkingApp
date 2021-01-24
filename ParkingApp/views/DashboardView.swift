@@ -2,7 +2,7 @@
 //  DashboardView.swift
 //  ParkingApp
 //
-//  Created by Sargam on 24/01/21.
+//  Created by Shailesh Yadav, 101332535 on 24/01/21.
 //
 
 import SwiftUI
@@ -14,6 +14,7 @@ struct DashboardView: View {
     @State private var showPopover = false
     @State private var isLogout: Bool = false
     
+    // This method is to logout user
     func onLogout() {
         print("Loggin out ised")
         let firebaseAuth = Auth.auth()

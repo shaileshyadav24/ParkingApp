@@ -2,7 +2,7 @@
 //  RegistrationView.swift
 //  ParkingApp
 //
-//  Created by Sargam on 24/01/21.
+//  Created by Shailesh Yadav, 101332535 on 24/01/21.
 //
 
 import SwiftUI
@@ -21,13 +21,14 @@ struct RegistrationView: View {
     @State private var displayMessageString: String = ""
     @EnvironmentObject var profileController: ProfileController
     
-    
+    // This method is to validate email regex
     func textFieldValidatorEmail(email : String) -> Bool {
         let emailFormat = "(?:[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}~-]+(?:\\.[\\p{L}0-9!#$%\\&'*+/=?\\^_`{|}" + "~-]+)*|\"(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21\\x23-\\x5b\\x5d-\\" + "x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])*\")@(?:(?:[\\p{L}0-9](?:[a-" + "z0-9-]*[\\p{L}0-9])?\\.)+[\\p{L}0-9](?:[\\p{L}0-9-]*[\\p{L}0-9])?|\\[(?:(?:25[0-5" + "]|2[0-4][0-9]|[01]?[0-9][0-9]?)\\.){3}(?:25[0-5]|2[0-4][0-9]|[01]?[0-" + "9][0-9]?|[\\p{L}0-9-]*[\\p{L}0-9]:(?:[\\x01-\\x08\\x0b\\x0c\\x0e-\\x1f\\x21" + "-\\x5a\\x53-\\x7f]|\\\\[\\x01-\\x09\\x0b\\x0c\\x0e-\\x7f])+)\\])"
         let emailPredicate = NSPredicate(format:"SELF MATCHES %@", emailFormat)
         return emailPredicate.evaluate(with: email)
     }
     
+    // This method is to validate registration details and proceed for adding new user
     func validateAndRegisterUser() {
         self.isErrorMessage = true
         self.isMessageAvailable = false
@@ -55,6 +56,7 @@ struct RegistrationView: View {
         }
     }
     
+    // This method is for saving new profile in DB after checking if email exist
     func saveUserInFirebase() {
         self.profileController.searchIfEmailExit(email: self.emailAddress.lowercased()) { success in
             if(success) {
