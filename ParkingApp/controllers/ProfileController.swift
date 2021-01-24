@@ -40,53 +40,36 @@ class ProfileController: ObservableObject {
         //            }
     }
     
+    func getProfileOfLoggedInUser() -> Profile {
+        return self.profile
+    }
     
     func fetchRecordUsingEmail(email: String) {
         self.store.collection(COLLECTION_PARKING).whereField("email", isEqualTo: email)
-            .addSnapshotListener({ [self] (querySnapshot, error) in
+            .getDocuments() {
+                (querySnapshot, err) in
                 
-                guard let snapshot = querySnapshot else{
-                    print(#function, "Error fetching snapshot results", error)
+                guard let snapshot = querySnapshot else {
+                    print(#function, "Error fetching snapshot results", err)
                     return
                 }
                 
                 snapshot.documentChanges.forEach{ (doc) in
-                    var profile = Profile()
+                    self.profile = Profile()
                     
                     do{
-                        profile = try doc.document.data(as: Profile.self)!
-                        
-                        if doc.type == .added{
-                            self.profile = profile
-                        }
-                        
-                        if doc.type == .modified{
-//                                                        let docID = doc.document.documentID
-//
-//                                                        if (matchedTaskIndex != nil){
-//                                                            self.taskList[matchedTaskIndex!] = task
-//                                                        }
-                        }
-                        
-                        if doc.type == .removed{
-                            //                            let docID = doc.document.documentID
-                            //
-                            //                            let matchedTaskIndex = self.taskList.firstIndex(where: {
-                            //                                ($0.id?.elementsEqual(docID))!
-                            //                            })
-                            //
-                            //                            if (matchedTaskIndex != nil){
-                            //                                self.taskList.remove(at: matchedTaskIndex!)
-                            //                            }
-                        }
+                        self.profile = try doc.document.data(as: Profile.self)!
+                        print("Profile", self.profile)
                         
                     }catch let error as NSError{
-                        print(#function, error)
+                        print("#function", error)
                     }
                 }
-                
-            })
+            }
+        
     }
+    
+    
     
     
     func searchIfEmailExit(email: String, completionHndler: @escaping(_ isRecordAvailable: Bool) -> Void) {
