@@ -12,6 +12,7 @@ struct DashboardView: View {
     @EnvironmentObject var profileController: ProfileController
     @State private var emailAddress: String = ""
     @State private var showPopover = false
+    @State private var isLogout: Bool = false
     
     func onLogout() {
         print("Loggin out ised")
@@ -19,9 +20,9 @@ struct DashboardView: View {
         do {
             try firebaseAuth.signOut()
             UserDefaults.standard.removeObject(forKey: "emailAddress")
-            //            self.isLogout.toggle()
+            self.isLogout.toggle()
         } catch let error as NSError {
-            
+            print("Error in logout", error.localizedDescription)
         }
         
     }
@@ -29,11 +30,18 @@ struct DashboardView: View {
     var body: some View {
         NavigationView {
             TabView {
-                ProfileView().environmentObject(profileController)
-                    .tabItem {
-                        Image(systemName: "contacts.fill")
-                        Text("Profile")
-                    }
+                VStack{
+                    NavigationLink(
+                        destination: LoginView().environmentObject(profileController).navigationBarHidden(true),
+                        isActive: $isLogout,
+                        label: {
+                        })
+                    ProfileView().environmentObject(profileController)
+                        .tabItem {
+                            Image(systemName: "contacts.fill")
+                            Text("Profile")
+                        }
+                }
             }
             .onAppear() {
                 guard let email = UserDefaults.standard.string(forKey: "emailAddress") else {return}

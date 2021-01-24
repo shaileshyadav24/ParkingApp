@@ -28,16 +28,22 @@ class ProfileController: ObservableObject {
         }
     }
     
-    func updateProfile(index: Int, task: Profile){
-        //        self.store.collection(COLLECTION_TASK)
-        //            .document(self.taskList[index].id!)
-        //            .updateData(["completion" : task.completion]){ error in
-        //                if let error = error{
-        //                    print(#function, error)
-        //                }else{
-        //                    print(#function, "Document updated successfully")
-        //                }
-        //            }
+    func updateProfile(id: String, profile: Profile){
+        print("ID is for")
+        self.store.collection(COLLECTION_PARKING)
+            .document(id)
+            .updateData(
+                ["email" : profile.email,
+                 "carPlateNumber" : profile.carPlateNumber,
+                 "contactNumber" : profile.contactNumber,
+                 "name" : profile.name]
+            ){ error in
+                if let error = error{
+                    print(#function, error)
+                }else{
+                    print(#function, "Document updated successfully")
+                }
+            }
     }
     
     func getProfileOfLoggedInUser() -> Profile {
@@ -87,18 +93,50 @@ class ProfileController: ObservableObject {
             }
     }
     
+    func searchIfEmailExitForExistingUser(email: String, id: String, completionHndler: @escaping(_ isRecordAvailable: Bool) -> Void) {
+        var isRecordAvailable = false
+        self.store.collection(COLLECTION_PARKING).whereField("email", isEqualTo: email)
+            .getDocuments() {
+                (querySnapshot, err) in
+                if let err = err {
+                    print("Error getting documents: \(err)")
+                    isRecordAvailable = true
+                } else {
+                    if let snapshot = querySnapshot {
+                        var matchingRecords = 0
+                        snapshot.documents.forEach{ (doc) in
+                            do{
+                                let profileData = try doc.data(as: Profile.self)!
+                                
+                                if(profileData.id != id) {
+                                    matchingRecords = matchingRecords + 1
+                                    print("Matching record", matchingRecords)
+                                }
+                            } catch let error as NSError{
+                                print("#function", error)
+                                // Added to avoid proceeding to save
+                                matchingRecords = matchingRecords + 1
+                            }
+                        }
+                        isRecordAvailable = matchingRecords > 0
+                    }
+                }
+                completionHndler(isRecordAvailable)
+            }
+    }
     
-    //    func deleteProfile(index: Int){
-    //        self.store.collection(COLLECTION_PARKING)
-    //            .document(self.profileList[index].id!)
-    //            .delete{error in
-    //                if let error = error{
-    //                    print(#function, error)
-    //                }else{
-    //                    print(#function, "Document successfully deleted")
-    //                }
-    //            }
-    //    }
+    
+    func deleteProfile(id: String){
+        self.store.collection(COLLECTION_PARKING)
+            .document(id)
+            .delete{error in
+                if let error = error{
+                    print(#function, error)
+                }else{
+                    print(#function, "Document successfully deleted")
+                }
+            }
+    }
     
     
 }
