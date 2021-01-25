@@ -19,6 +19,23 @@ struct ProfileView: View {
     @State private var isErrorMessage: Bool = true
     @State private var isMessageAvailable: Bool = false
     @State private var displayMessageString: String = ""
+    @State private var loggingOut = false
+    @State private var showPopover = false
+    
+    // New logout function
+    func onLogout() {
+        print("Loggin out ised")
+        let firebaseAuth = Auth.auth()
+        do {
+            try firebaseAuth.signOut()
+            UserDefaults.standard.removeObject(forKey: "emailAddress")
+            self.profileController.resetProfile()
+            self.isLogout.toggle()
+        } catch let error as NSError {
+            print("Error in logout", error.localizedDescription)
+        }
+        
+    }
     
     // THis method will reautheticate user and then delete entry from Firebase Authenticator and FIrebase DB
     func initiateDeleteUser() {
@@ -49,8 +66,14 @@ struct ProfileView: View {
     
     var body: some View {
         NavigationView {
+            
             VStack(alignment: .leading , spacing: nil) {
                 
+                NavigationLink(
+                    destination: LoginView().environmentObject(profileController).navigationBarHidden(true),
+                    isActive: $loggingOut,
+                    label: {
+                    })
                 
                 HStack(alignment: .firstTextBaseline , spacing: 1) {
                     Text("Name: ")
@@ -164,7 +187,19 @@ struct ProfileView: View {
                 }
             }
             
+            
             .navigationBarTitle("Profile", displayMode: .automatic)
+            .navigationBarItems(trailing: Button(action:{
+                self.showPopover = true
+            }){
+                Text("Logout")
+            }).alert(isPresented: $showPopover) {
+                Alert(title: Text("Logout"), message: Text("Are you sure want to logout?"),  primaryButton: .default(Text("Yes"), action: {
+                    onLogout()
+                }), secondaryButton: .default(Text("No"), action: {
+                    self.showPopover = false
+                }))
+            }
         }
         
     }

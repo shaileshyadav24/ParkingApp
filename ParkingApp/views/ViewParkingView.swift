@@ -29,20 +29,33 @@ struct ViewParkingView: View {
         
             VStack {
                 NavigationLink(
-                    destination: ViewParkingDetailsView(ParkingInfo: parkingInfo).environmentObject(profileController).navigationBarTitle(parkingInfo.parkingAddr),
+                    destination: ViewParkingDetailsView(ParkingInfo: parkingInfo).environmentObject(profileController).navigationBarTitle("Parking Details"),
                     isActive: $parkingListItemPressed,
                     label: {
                     })
                 
+                if(self.profileController.ParkingList == []){
+                    Text("You haven't added any parking yet! Add parking under the 'Add Parking' tab, and come back after!")
+                        .foregroundColor(.red)
+                }
+                
+                
                 List {
+                    if(self.profileController.ParkingList != []){
+                        Text("Tap an item to view detailed information.")
+                            .foregroundColor(.gray)
+                            .padding(.top, 5)
+                    }
+                    
                     
                     ForEach(self.profileController.ParkingList.enumerated().map({$0}), id: \.element.self){ idx, parkingInfo in
                         NavigationLink(
-                            destination: ViewParkingDetailsView(ParkingInfo: parkingInfo).environmentObject(profileController).navigationBarTitle(parkingInfo.parkingAddr),
+                            destination: ViewParkingDetailsView(ParkingInfo: parkingInfo).environmentObject(profileController).navigationBarTitle("Parking Details"),
                             label: {
-                                HStack {
+                                VStack(alignment: .leading , spacing: nil) {
                                     
                                     Text("\(parkingInfo.parkingAddr)")
+                                    Text("Plate #: \(parkingInfo.carPlateNumber)")
                                     
                                 }
                                 .onTapGesture {

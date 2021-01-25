@@ -213,7 +213,7 @@ struct AddParkingView: View {
                     Button(action: toggle){
                         HStack{
                             Image(systemName: useLocationIsChecked ? "checkmark.square": "square")
-                            Text("Use Location Services?")
+                            Text("Use Current Location?")
                         }
                         .foregroundColor(Color.blue)
 
@@ -252,6 +252,7 @@ struct AddParkingView: View {
             }).alert(isPresented: $displayAddErrorAlert){
                 Alert(title: Text(addErrorTitle ?? "There was a problem"), message: Text(addErrorDesc ?? "Unfortunately we were unable to determine the problem right now. Please try again."), dismissButton: .default(Text("Okay")))
             }
+            .ignoresSafeArea(.keyboard)
             Spacer()
 
             

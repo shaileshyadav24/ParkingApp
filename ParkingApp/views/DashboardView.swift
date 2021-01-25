@@ -16,6 +16,7 @@ struct DashboardView: View {
     
     
     
+    
     // This method is to logout user
     func onLogout() {
         print("Loggin out ised")
@@ -39,7 +40,15 @@ struct DashboardView: View {
 //                isActive: $parkingListItemPressed,
 //                label: {
 //                })
+        
+        
             
+        VStack {
+            NavigationLink(
+                destination: LoginView().environmentObject(profileController).navigationBarHidden(true),
+                isActive: $isLogout,
+                label: {
+                })
             
             TabView {
                 VStack{
@@ -69,6 +78,8 @@ struct DashboardView: View {
                 }
                 
             }
+        }
+            
             
             
             
@@ -76,9 +87,14 @@ struct DashboardView: View {
             
             
             .onAppear() {
+                
                 guard let email = UserDefaults.standard.string(forKey: "emailAddress") else {return}
                 self.emailAddress = email.lowercased()
                 self.profileController.fetchRecordUsingEmail(email: email)
+                
+                if(isLogout){
+                    onLogout()
+                }
             }
             .navigationBarTitle("ParkingApp", displayMode: .inline)
             .navigationBarItems(trailing: Button(action:{
