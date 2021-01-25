@@ -8,6 +8,11 @@
 
 /* Begin PBXBuildFile section */
 		24639462CE6826E3452589B5 /* Pods_ParkingApp.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = 0B54401FF0F496EE6C4F1E55 /* Pods_ParkingApp.framework */; };
+		3D218E1C25BE276C00CAEE04 /* AddParkingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D218E1B25BE276C00CAEE04 /* AddParkingView.swift */; };
+		3D218E1F25BE277D00CAEE04 /* ViewParkingView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D218E1E25BE277D00CAEE04 /* ViewParkingView.swift */; };
+		3D218E2225BE335100CAEE04 /* LocationController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D218E2125BE335100CAEE04 /* LocationController.swift */; };
+		3D218E2525BE583300CAEE04 /* Parking.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D218E2425BE583300CAEE04 /* Parking.swift */; };
+		3D218E2825BE775600CAEE04 /* ViewParkingDetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 3D218E2725BE775600CAEE04 /* ViewParkingDetailsView.swift */; };
 		4D1B4A3225BA4470005CABE8 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B4A3125BA4470005CABE8 /* AppDelegate.swift */; };
 		4D1B4A3425BA4470005CABE8 /* SceneDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B4A3325BA4470005CABE8 /* SceneDelegate.swift */; };
 		4D1B4A3625BA4470005CABE8 /* ContentView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 4D1B4A3525BA4470005CABE8 /* ContentView.swift */; };
@@ -29,6 +34,11 @@
 /* Begin PBXFileReference section */
 		0B54401FF0F496EE6C4F1E55 /* Pods_ParkingApp.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ParkingApp.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		209E6C766AFE87FD98EC5136 /* Pods-ParkingApp.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ParkingApp.release.xcconfig"; path = "Target Support Files/Pods-ParkingApp/Pods-ParkingApp.release.xcconfig"; sourceTree = "<group>"; };
+		3D218E1B25BE276C00CAEE04 /* AddParkingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AddParkingView.swift; sourceTree = "<group>"; };
+		3D218E1E25BE277D00CAEE04 /* ViewParkingView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewParkingView.swift; sourceTree = "<group>"; };
+		3D218E2125BE335100CAEE04 /* LocationController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = LocationController.swift; sourceTree = "<group>"; };
+		3D218E2425BE583300CAEE04 /* Parking.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Parking.swift; sourceTree = "<group>"; };
+		3D218E2725BE775600CAEE04 /* ViewParkingDetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = ViewParkingDetailsView.swift; sourceTree = "<group>"; };
 		4D1B4A2E25BA4470005CABE8 /* ParkingApp.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ParkingApp.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		4D1B4A3125BA4470005CABE8 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		4D1B4A3325BA4470005CABE8 /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
@@ -124,6 +134,9 @@
 				4DFF9BC825BD722200EA1AA4 /* DashboardView.swift */,
 				4DFF9BE225BDBEB300EA1AA4 /* EditProfileView.swift */,
 				4DFF9BE525BDE43C00EA1AA4 /* UpdatePasswordView.swift */,
+				3D218E1B25BE276C00CAEE04 /* AddParkingView.swift */,
+				3D218E1E25BE277D00CAEE04 /* ViewParkingView.swift */,
+				3D218E2725BE775600CAEE04 /* ViewParkingDetailsView.swift */,
 			);
 			path = views;
 			sourceTree = "<group>";
@@ -132,6 +145,7 @@
 			isa = PBXGroup;
 			children = (
 				4DFF9BB925BD6E8C00EA1AA4 /* ProfileController.swift */,
+				3D218E2125BE335100CAEE04 /* LocationController.swift */,
 			);
 			path = controllers;
 			sourceTree = "<group>";
@@ -140,6 +154,7 @@
 			isa = PBXGroup;
 			children = (
 				4DFF9BBC25BD6ED000EA1AA4 /* Profile.swift */,
+				3D218E2425BE583300CAEE04 /* Parking.swift */,
 			);
 			path = modals;
 			sourceTree = "<group>";
@@ -272,13 +287,18 @@
 				4D1B4A3925BA4470005CABE8 /* ParkingApp.xcdatamodeld in Sources */,
 				4DFF9BC625BD721300EA1AA4 /* ProfileView.swift in Sources */,
 				4DFF9BC025BD71F800EA1AA4 /* LoginView.swift in Sources */,
+				3D218E2525BE583300CAEE04 /* Parking.swift in Sources */,
+				3D218E2825BE775600CAEE04 /* ViewParkingDetailsView.swift in Sources */,
 				4DFF9BE325BDBEB300EA1AA4 /* EditProfileView.swift in Sources */,
 				4DFF9BBD25BD6ED000EA1AA4 /* Profile.swift in Sources */,
 				4D1B4A3225BA4470005CABE8 /* AppDelegate.swift in Sources */,
 				4D1B4A3425BA4470005CABE8 /* SceneDelegate.swift in Sources */,
+				3D218E1F25BE277D00CAEE04 /* ViewParkingView.swift in Sources */,
 				4DFF9BBA25BD6E8C00EA1AA4 /* ProfileController.swift in Sources */,
 				4DFF9BC925BD722200EA1AA4 /* DashboardView.swift in Sources */,
 				4D1B4A3625BA4470005CABE8 /* ContentView.swift in Sources */,
+				3D218E1C25BE276C00CAEE04 /* AddParkingView.swift in Sources */,
+				3D218E2225BE335100CAEE04 /* LocationController.swift in Sources */,
 				4DFF9BC325BD720700EA1AA4 /* RegistrationView.swift in Sources */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
@@ -421,6 +441,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ParkingApp/Preview Content\"";
+				DEVELOPMENT_TEAM = YT2RMVC9TL;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ParkingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (
@@ -442,6 +463,7 @@
 				ASSETCATALOG_COMPILER_GLOBAL_ACCENT_COLOR_NAME = AccentColor;
 				CODE_SIGN_STYLE = Automatic;
 				DEVELOPMENT_ASSET_PATHS = "\"ParkingApp/Preview Content\"";
+				DEVELOPMENT_TEAM = YT2RMVC9TL;
 				ENABLE_PREVIEWS = YES;
 				INFOPLIST_FILE = ParkingApp/Info.plist;
 				LD_RUNPATH_SEARCH_PATHS = (

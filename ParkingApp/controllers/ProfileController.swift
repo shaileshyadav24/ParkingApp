@@ -11,7 +11,11 @@ import FirebaseFirestore
 
 class ProfileController: ObservableObject {
     @Published var profile = Profile()
+    @Published var profileFound = false
+    @Published var ParkingList: [Parking] = []
     private let COLLECTION_PARKING : String = "Parking"
+    private let COLLECTION_ADDED_PARKING : String = "AddedParking"
+    private let COLLECTION_PARKING_LIST : String = "ParkingList"
     let store : Firestore
     
     
@@ -64,6 +68,8 @@ class ProfileController: ObservableObject {
                     do{
                         self.profile = try doc.document.data(as: Profile.self)!
                         print("Profile", self.profile)
+                        self.profileFound = true
+                        print(#function, "found profile eh")
                         
                     }catch let error as NSError{
                         print("#function", error)
@@ -140,6 +146,81 @@ class ProfileController: ObservableObject {
     // To reset profile variable after logout
     func resetProfile() {
         self.profile = Profile()
+    }
+    
+    // To add a parking file to the database.
+    func addParkingToDatabase(email:String, newParking:Parking) -> Bool {
+        print(#function, "Adding parking to database func running")
+        do{
+            _ = try self.store.collection(COLLECTION_ADDED_PARKING).document(email).collection(COLLECTION_PARKING_LIST).addDocument(from: newParking)
+            return true
+        } catch let error as NSError{
+            print(#function, "Error inserting new parking", error)
+            return false
+        }
+    }
+    
+    func fetchParkingListByEmail(email:String) {
+        
+        self.store.collection(COLLECTION_ADDED_PARKING).document(email).collection(COLLECTION_PARKING_LIST).addSnapshotListener({ [self] (QuerySnapshot, error) in
+                
+                guard let snapshot = QuerySnapshot else {
+                    print(#function, "Error fetching snapshot results: ", error)
+                    return
+                }
+                
+                snapshot.documentChanges.forEach{ (doc) in
+                    var parking = Parking()
+                    
+                    do {
+                        parking = try doc.document.data(as: Parking.self)!
+                        
+                        if doc.type == .added {
+                            self.ParkingList.append(parking)
+                        }
+                        
+                        if doc.type == .modified {
+                            print(#function, "DOCUMENT, \(doc) MODIFIED")
+                            let docID = doc.document.documentID
+                            let matchedTaskIndex = self.ParkingList.firstIndex(where: {
+                                ($0.id?.elementsEqual(docID))!
+                            })
+                            
+                            if(matchedTaskIndex != nil) {
+                                self.ParkingList[matchedTaskIndex!] = parking
+                            }
+                            
+                        }
+                        
+                        if doc.type == .removed {
+                            print(#function, "DOCUMENT, \(doc) REMOVED")
+                            let docID = doc.document.documentID
+                            let matchedTaskIndex = self.ParkingList.firstIndex(where: {
+                                ($0.id?.elementsEqual(docID))!
+                            })
+                            
+                            if(matchedTaskIndex != nil) {
+                                self.ParkingList.remove(at: matchedTaskIndex!)
+                            }
+                        }
+                        
+                    }catch let error as NSError {
+                        print(#function, error.localizedDescription)
+                    }
+                }
+                
+            })
+        
+    }
+    
+    func deleteParking(index: Int, email: String) {
+        self.store.collection(COLLECTION_ADDED_PARKING).document(email).collection(COLLECTION_PARKING_LIST).document(self.ParkingList[index].id!).delete{ error in
+            if let error = error {
+                print(#function, error.localizedDescription)
+            }else {
+                print(#function, "Document deleted successfully!")
+            }
+        }
     }
     
 }

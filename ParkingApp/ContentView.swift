@@ -11,11 +11,14 @@ struct ContentView: View {
     @EnvironmentObject var profileController: ProfileController
 
     var body: some View {
-        if(UserDefaults.standard.string(forKey: "emailAddress") != nil) {
-            DashboardView().environmentObject(profileController)
-        } else{
-            LoginView().environmentObject(profileController)
-        }
+//        NavigationView {
+            if(UserDefaults.standard.string(forKey: "emailAddress") != nil) {
+                DashboardView().environmentObject(profileController).navigationBarTitle("test")
+            } else{
+                LoginView().environmentObject(profileController)
+            }
+//        }
+        
     }
 }
 

@@ -14,6 +14,8 @@ struct DashboardView: View {
     @State private var showPopover = false
     @State private var isLogout: Bool = false
     
+    
+    
     // This method is to logout user
     func onLogout() {
         print("Loggin out ised")
@@ -30,20 +32,49 @@ struct DashboardView: View {
     }
     
     var body: some View {
-        NavigationView {
+        
+            
+//            NavigationLink(
+//                destination: ViewParkingDetailsView(ParkingInfo: parkingInfo).environmentObject(profileController).navigationBarHidden(true),
+//                isActive: $parkingListItemPressed,
+//                label: {
+//                })
+            
+            
             TabView {
                 VStack{
-                    NavigationLink(
-                        destination: LoginView().environmentObject(profileController).navigationBarHidden(true),
-                        isActive: $isLogout,
-                        label: {
-                        })
+                    
                     ProfileView().environmentObject(profileController)
                 }.tabItem {
-                    Image(systemName: "person")
+                    Image(systemName: "person.fill.viewfinder")
                     Text("Profile")
                 }
+                
+                VStack{
+                        
+                    
+                    AddParkingView().environmentObject(profileController)
+                }.tabItem {
+                    Image(systemName: "plus.viewfinder")
+                    Text("Add Parking")
+                }
+                
+                
+                VStack{
+                    
+                    ViewParkingView().environmentObject(profileController)
+                }.tabItem {
+                    Image(systemName: "location.fill.viewfinder")
+                    Text("View Parking")
+                }
+                
             }
+            
+            
+            
+            
+            
+            
             .onAppear() {
                 guard let email = UserDefaults.standard.string(forKey: "emailAddress") else {return}
                 self.emailAddress = email.lowercased()
@@ -61,9 +92,10 @@ struct DashboardView: View {
                     self.showPopover = false
                 }))
             }
-        }
+        
     }
-}
+    
+    }
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {
