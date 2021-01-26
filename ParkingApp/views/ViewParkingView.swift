@@ -12,6 +12,8 @@ struct ViewParkingView: View {
     @EnvironmentObject var profileController: ProfileController
     @State private var parkingList:[Parking] = []
     @State private var email:String = ""
+    @State private var deletionCheck = false
+    @State private var indexToDelete:Int = -1
     
     @State private var parkingListItemPressed = false
     @State private var parkingInfo:Parking = Parking(email: "", buildingCode: "", hoursSelection: -1, suitNo: "", carPlateNumber: "", parkingAddr: "", date: Date(), parkingLat: 0.0, parkingLon: 0.0)
@@ -70,8 +72,12 @@ struct ViewParkingView: View {
                     }
                     .onDelete{indexSet in
                         for index in indexSet {
-                            self.profileController.deleteParking(index: index, email: self.email)
+                            
+                            self.indexToDelete = index
+                            self.deletionCheck = true
+                                
                         }
+                        
                     }
                 }
                 
@@ -93,6 +99,13 @@ struct ViewParkingView: View {
                 
             }
             
+        }
+        .alert(isPresented: $deletionCheck) {
+            Alert(title: Text("Delete?"), message: Text("Are you sure want to delete this parking record? This action cannot be undone."),  primaryButton: .destructive(Text("Yes"), action: {
+                self.profileController.deleteParking(index: self.indexToDelete, email: self.email)
+            }), secondaryButton: .default(Text("No"), action: {
+                self.deletionCheck = false
+            }))
         }
         .onAppear(){
             guard let email = UserDefaults.standard.string(forKey: "emailAddress") else {return}
