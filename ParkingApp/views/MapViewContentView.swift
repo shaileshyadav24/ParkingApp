@@ -12,6 +12,12 @@ struct MapViewContentView: UIViewRepresentable {
     
     var ParkingInfo:Parking = Parking()
     
+    @State var AlertShown:Bool = false
+    @State var showAlert:Bool = false
+    
+    @State var startAnnotationAdded = false
+    @State var endAnnotationAdded = false
+    
     @ObservedObject var locationManager = LocationManager()
     var userLatitude: Double {
             return Double(locationManager.lastLocation?.coordinate.latitude ?? 0)
@@ -118,6 +124,8 @@ struct MapViewContentView: UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView, context: Context) {
         uiView.delegate = context.coordinator
         
+        
+            
 
         
         let currentUsersLocation = CLLocationCoordinate2D(latitude: self.userLatitude, longitude: self.userLongitude)
@@ -126,12 +134,20 @@ struct MapViewContentView: UIViewRepresentable {
         let startPin = MKPointAnnotation()
         startPin.coordinate = currentUsersLocation
         startPin.title = "Current Location"
-        uiView.addAnnotation(startPin)
+        if(!startAnnotationAdded){
+            uiView.addAnnotation(startPin)
+            self.startAnnotationAdded = true
+        }
+        
         
         let endPin = MKPointAnnotation()
         endPin.coordinate = markersLocation
         endPin.title = ParkingInfo.parkingAddr
-        uiView.addAnnotation(endPin)
+        if(!endAnnotationAdded){
+            uiView.addAnnotation(endPin)
+            self.endAnnotationAdded = true
+        }
+        
         
 //        let region = MKCoordinateRegion(center: currentUsersLocation, latitudinalMeters: 100000, longitudinalMeters: 100000)
         
@@ -154,7 +170,7 @@ struct MapViewContentView: UIViewRepresentable {
 //            uiView.setRegion(MKCoordinateRegion(polyline!.boundingMapRect), animated: true)
             uiView.setVisibleMapRect(
             polyline!.boundingMapRect,
-            edgePadding: UIEdgeInsets(top: 50, left: 0, bottom: 50, right: 0),
+            edgePadding: UIEdgeInsets(top: 50, left: 10, bottom: 50, right: 10),
             animated: true)
             
             
