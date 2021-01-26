@@ -36,10 +36,7 @@ struct ViewParkingView: View {
                     label: {
                     })
                 
-                if(self.profileController.ParkingList == []){
-                    Text("You haven't added any parking yet! Add parking under the 'Add Parking' tab, and come back after!")
-                        .foregroundColor(.red)
-                }
+                
                 
                 
                 List {
@@ -81,23 +78,17 @@ struct ViewParkingView: View {
                     }
                 }
                 
-                .navigationBarTitle("Parking List", displayMode: .automatic)
+                if(self.profileController.ParkingList == []){
+                    Text("You haven't added any parking yet! Add parking under the 'Add Parking' tab, and come back after!")
+                        .foregroundColor(.red)
+                        .padding()
+                }
                 
-//                    .navigationBarItems(trailing: Button(action: {
-//                        //Show NewTaskView()
-//                        self.isPresented = true
-//                    }) {
-//                        Image(systemName: "plus")
-//                            .resizable()
-//                            .padding()
-//                    }.sheet(isPresented: self.$isPresented) {
-//                        AddTaskView(taskID: TaskMO(title: "", completion: false), isSubTask: false)
-//                    }
-//                    )
                 
                 
                 
             }
+            .navigationBarTitle("Parking List", displayMode: .automatic)
             
         }
         .alert(isPresented: $deletionCheck) {
