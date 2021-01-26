@@ -200,7 +200,7 @@ struct AddParkingView: View {
     
     var body: some View {
         
-//        NavigationView {
+        NavigationView {
             VStack{
                 VStack {
                     Form {
@@ -299,10 +299,10 @@ struct AddParkingView: View {
         
 
             
-//        .navigationBarTitle("Add Parking", displayMode: .automatic)
+        .navigationBarTitle("Add Parking", displayMode: .automatic)
             
         
-//        }
+        }
         .onAppear() {
             self.carPlate = self.profileController.profile.carPlateNumber
         }
