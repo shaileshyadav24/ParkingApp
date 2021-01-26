@@ -162,7 +162,7 @@ class ProfileController: ObservableObject {
     
     func fetchParkingListByEmail(email:String) {
         
-        self.store.collection(COLLECTION_ADDED_PARKING).document(email).collection(COLLECTION_PARKING_LIST).order(by: "date").addSnapshotListener({ [self] (QuerySnapshot, error) in
+        self.store.collection(COLLECTION_ADDED_PARKING).document(email).collection(COLLECTION_PARKING_LIST).order(by: "date", descending: true).addSnapshotListener({ [self] (QuerySnapshot, error) in
                 
                 guard let snapshot = QuerySnapshot else {
                     print(#function, "Error fetching snapshot results: ", error)
