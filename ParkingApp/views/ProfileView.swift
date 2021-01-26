@@ -75,11 +75,14 @@ struct ProfileView: View {
                     label: {
                     })
                 
+                
+                
                 HStack(alignment: .firstTextBaseline , spacing: 1) {
                     Text("Name: ")
                         .fontWeight(.bold)
                     Text("\(self.profileController.profile.name)")
                 }.padding(.bottom, 10)
+                .padding(.top, 10)
                 HStack(alignment: .firstTextBaseline , spacing: 1) {
                     Text("Email: ")
                         .fontWeight(.bold)
@@ -188,7 +191,7 @@ struct ProfileView: View {
             }
             
             
-            .navigationBarTitle("Profile", displayMode: .automatic)
+            .navigationBarTitle("Profile", displayMode: .inline)
             .navigationBarItems(trailing: Button(action:{
                 self.showPopover = true
             }){
