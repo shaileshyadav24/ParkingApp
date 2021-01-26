@@ -56,7 +56,7 @@ struct ProfileView: View {
                     } else {
                         self.isLogout.toggle()
                         UserDefaults.standard.removeObject(forKey: "emailAddress")
-                        self.profileController.deleteProfile(id: self.profileController.profile.id!)
+                        self.profileController.deleteProfile(id: self.profileController.profile.id!, email: self.profileController.profile.email)
                         self.profileController.resetProfile()
                     }
                 }

@@ -131,9 +131,18 @@ class ProfileController: ObservableObject {
     
     
     // To delete profile using ID
-    func deleteProfile(id: String){
+    func deleteProfile(id: String, email: String){
         self.store.collection(COLLECTION_PARKING)
             .document(id)
+            .delete{error in
+                if let error = error{
+                    print(#function, error)
+                }else{
+                    print(#function, "Document successfully deleted")
+                }
+            }
+        self.store.collection(COLLECTION_ADDED_PARKING)
+            .document(email)
             .delete{error in
                 if let error = error{
                     print(#function, error)
