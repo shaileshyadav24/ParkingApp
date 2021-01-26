@@ -91,6 +91,29 @@ struct MapViewContentView: UIViewRepresentable {
         endPin.title = ParkingInfo.parkingAddr
         mapView.addAnnotation(endPin)
         
+        
+        let req = MKDirections.Request()
+        req.source = MKMapItem(placemark: MKPlacemark(coordinate: currentUsersLocation))
+        req.destination = MKMapItem(placemark: MKPlacemark(coordinate: markersLocation))
+        
+        let directions = MKDirections(request: req)
+        
+        directions.calculate { (direct, err) in
+            if err != nil {
+                print((err?.localizedDescription)!)
+                return
+            }
+            
+            let polyline = direct?.routes.first?.polyline
+            mapView.addOverlay(polyline!)
+            mapView.setVisibleMapRect(
+            polyline!.boundingMapRect,
+            edgePadding: UIEdgeInsets(top: 50, left: 10, bottom: 50, right: 10),
+            animated: true)
+            
+            
+        }
+        
 
         mapView.isZoomEnabled = false
         mapView.isScrollEnabled = false
@@ -109,27 +132,28 @@ struct MapViewContentView: UIViewRepresentable {
         let markersLocation = CLLocationCoordinate2D(latitude: self.ParkingInfo.parkingLat, longitude: self.ParkingInfo.parkingLon)
         
         
-        let req = MKDirections.Request()
-        req.source = MKMapItem(placemark: MKPlacemark(coordinate: currentUsersLocation))
-        req.destination = MKMapItem(placemark: MKPlacemark(coordinate: markersLocation))
-        
-        let directions = MKDirections(request: req)
-        
-        directions.calculate { (direct, err) in
-            if err != nil {
-                print((err?.localizedDescription)!)
-                return
-            }
-            
-            let polyline = direct?.routes.first?.polyline
-            uiView.addOverlay(polyline!)
-            uiView.setVisibleMapRect(
-            polyline!.boundingMapRect,
-            edgePadding: UIEdgeInsets(top: 50, left: 10, bottom: 50, right: 10),
-            animated: true)
-            
-            
-        }
+        //MARK: CODE THAT USED TO MAKE POLYLINE, MOVED INTO OTHER FUNCTION
+//        let req = MKDirections.Request()
+//        req.source = MKMapItem(placemark: MKPlacemark(coordinate: currentUsersLocation))
+//        req.destination = MKMapItem(placemark: MKPlacemark(coordinate: markersLocation))
+//
+//        let directions = MKDirections(request: req)
+//
+//        directions.calculate { (direct, err) in
+//            if err != nil {
+//                print((err?.localizedDescription)!)
+//                return
+//            }
+//
+//            let polyline = direct?.routes.first?.polyline
+//            uiView.addOverlay(polyline!)
+//            uiView.setVisibleMapRect(
+//            polyline!.boundingMapRect,
+//            edgePadding: UIEdgeInsets(top: 50, left: 10, bottom: 50, right: 10),
+//            animated: true)
+//
+//
+//        }
         
         
     }
