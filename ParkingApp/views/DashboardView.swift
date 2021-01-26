@@ -13,7 +13,7 @@ struct DashboardView: View {
     @State private var emailAddress: String = ""
     @State private var showPopover = false
     @State private var isLogout: Bool = false
-    @State private var selectedTab = 0
+    
     
     
     
@@ -34,52 +34,69 @@ struct DashboardView: View {
     
     var body: some View {
         
-        NavigationView{
             
-            VStack {
-                NavigationLink(
-                    destination: LoginView().environmentObject(profileController).navigationBarHidden(true),
-                    isActive: $isLogout,
-                    label: {
-                    })
+//            NavigationLink(
+//                destination: ViewParkingDetailsView(ParkingInfo: parkingInfo).environmentObject(profileController).navigationBarHidden(true),
+//                isActive: $parkingListItemPressed,
+//                label: {
+//                })
+        
+        
+            
+        VStack {
+            NavigationLink(
+                destination: LoginView().environmentObject(profileController).navigationBarHidden(true),
+                isActive: $isLogout,
+                label: {
+                })
+            
+            TabView {
+                VStack{
+                    
+                    ProfileView().environmentObject(profileController)
+                }.tabItem {
+                    Image(systemName: "person.fill.viewfinder")
+                    Text("Profile")
+                }
                 
-                TabView(selection: $selectedTab) {
-                    
-                    VStack{
-                        AddParkingView().environmentObject(profileController)
-                    }.onTapGesture {
-                        self.selectedTab = 0
-                    }.tabItem {
-                        Image(systemName: "plus.viewfinder")
-                        Text("Add Parking")
-                    }.tag(0)
-                    
-                    
-                    VStack{
+                VStack{
                         
-                        ViewParkingView().environmentObject(profileController)
-                    }.onTapGesture {
-                        self.selectedTab = 1
-                    }
-                    .tabItem {
-                        Image(systemName: "location.fill.viewfinder")
-                        Text("View Parking")
-                    }.tag(1)
                     
-                    VStack{
-                        
-                        ProfileView().environmentObject(profileController)
-                    }.onTapGesture {
-                        self.selectedTab = 2
-                    }
-                    .tabItem {
-                        Image(systemName: "person.fill.viewfinder")
-                        Text("Profile")
-                    }.tag(2)
+                    AddParkingView().environmentObject(profileController)
+                }.tabItem {
+                    Image(systemName: "plus.viewfinder")
+                    Text("Add Parking")
+                }
+                
+                
+                VStack{
                     
+                    ViewParkingView().environmentObject(profileController)
+                }.tabItem {
+                    Image(systemName: "location.fill.viewfinder")
+                    Text("View Parking")
+                }
+                
+            }
+        }
+            
+            
+            
+            
+            
+            
+            
+            .onAppear() {
+                
+                guard let email = UserDefaults.standard.string(forKey: "emailAddress") else {return}
+                self.emailAddress = email.lowercased()
+                self.profileController.fetchRecordUsingEmail(email: email)
+                
+                if(isLogout){
+                    onLogout()
                 }
             }
-            .navigationBarTitle(self.selectedTab == 0 ? "Add Parking" : (self.selectedTab == 1 ? "Parking List" : "Profile"), displayMode: .automatic)
+            .navigationBarTitle("ParkingApp", displayMode: .inline)
             .navigationBarItems(trailing: Button(action:{
                 self.showPopover = true
             }){
@@ -91,36 +108,10 @@ struct DashboardView: View {
                     self.showPopover = false
                 }))
             }
-            
-            
-            
-            
-            
-        }
-        
-        .onAppear() {
-            
-            guard let email = UserDefaults.standard.string(forKey: "emailAddress") else {return}
-            self.emailAddress = email.lowercased()
-            self.profileController.fetchRecordUsingEmail(email: email)
-
-        }
-        .navigationBarTitle("ParkingApp", displayMode: .inline)
-        .navigationBarItems(trailing: Button(action:{
-            self.showPopover = true
-        }){
-            Text("Logout")
-        }).alert(isPresented: $showPopover) {
-            Alert(title: Text("Logout"), message: Text("Are you sure want to logout?"),  primaryButton: .default(Text("Yes"), action: {
-                onLogout()
-            }), secondaryButton: .default(Text("No"), action: {
-                self.showPopover = false
-            }))
-        }
         
     }
     
-}
+    }
 
 struct DashboardView_Previews: PreviewProvider {
     static var previews: some View {

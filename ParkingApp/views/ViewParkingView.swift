@@ -22,7 +22,7 @@ struct ViewParkingView: View {
     
     var body: some View {
         
-//        NavigationView {
+        NavigationView {
             
         
         
@@ -88,8 +88,9 @@ struct ViewParkingView: View {
                 
                 
             }
+            .navigationBarTitle("Parking List", displayMode: .automatic)
             
-//        }
+        }
         .alert(isPresented: $deletionCheck) {
             Alert(title: Text("Delete?"), message: Text("Are you sure want to delete this parking record? This action cannot be undone."),  primaryButton: .destructive(Text("Yes"), action: {
                 self.profileController.deleteParking(index: self.indexToDelete, email: self.email)

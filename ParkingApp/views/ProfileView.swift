@@ -56,7 +56,7 @@ struct ProfileView: View {
                     } else {
                         self.isLogout.toggle()
                         UserDefaults.standard.removeObject(forKey: "emailAddress")
-                        self.profileController.deleteProfile(id: self.profileController.profile.id!, email: self.profileController.profile.email)
+                        self.profileController.deleteProfile(id: self.profileController.profile.id!)
                         self.profileController.resetProfile()
                     }
                 }
@@ -65,81 +65,97 @@ struct ProfileView: View {
     }
     
     var body: some View {
-        
-        VStack(alignment: .leading , spacing: nil) {
+        NavigationView {
             
-            NavigationLink(
-                destination: LoginView().environmentObject(profileController).navigationBarHidden(true),
-                isActive: $loggingOut,
-                label: {
-                })
-            
-            
-            
-            HStack(alignment: .firstTextBaseline , spacing: 1) {
-                Text("Name: ")
-                    .fontWeight(.bold)
-                Text("\(self.profileController.profile.name)")
-            }.padding(.bottom, 10)
-            .padding(.top, 10)
-            HStack(alignment: .firstTextBaseline , spacing: 1) {
-                Text("Email: ")
-                    .fontWeight(.bold)
-                Text("\(self.profileController.profile.email)")
+            VStack(alignment: .leading , spacing: nil) {
                 
-            }.padding(.bottom, 10)
-            HStack(alignment: .firstTextBaseline , spacing: 1) {
-                Text("Phone: ")
-                    .fontWeight(.bold)
-                Text("\(self.profileController.profile.contactNumber)")
-            }.padding(.bottom, 10)
-            HStack(alignment: .firstTextBaseline , spacing: 1) {
-                Text("Car Plate: ")
-                    .fontWeight(.bold)
-                Text("\(self.profileController.profile.carPlateNumber)")
-            }.padding(.bottom, 10)
-            
-            Spacer()
-            VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
-                Button(action: {
-                    self.showEditProfileView = true
-                }, label: {
-                    Text("Edit Profile")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 300, height: 40)
-                        .background(Color.yellow)
-                        .cornerRadius(10.0)
-                }).sheet(isPresented: self.$showEditProfileView){
-                    EditProfileView().environmentObject(profileController)
-                }
-                Button(action: {
-                    self.showPasswordChangeView = true
-                }, label: {
-                    Text("Change password")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 300, height: 40)
-                        .background(Color.yellow)
-                        .cornerRadius(10.0)
-                }).sheet(isPresented: self.$showPasswordChangeView){
-                    UpdatePasswordView().environmentObject(profileController)
-                }
-                Button(action: {
-                    self.showDeleteProfilePopup.toggle()
-                }, label: {
-                    Text("Delete Profile")
-                        .font(.title)
-                        .foregroundColor(.white)
-                        .padding()
-                        .frame(width: 300, height: 40)
-                        .background(Color.red)
-                        .cornerRadius(10.0)
-                        .padding(.bottom, 30)
-                })
+                NavigationLink(
+                    destination: LoginView().environmentObject(profileController).navigationBarHidden(true),
+                    isActive: $loggingOut,
+                    label: {
+                    })
                 
+                
+                
+                HStack(alignment: .firstTextBaseline , spacing: 1) {
+                    Text("Name: ")
+                        .fontWeight(.bold)
+                    Text("\(self.profileController.profile.name)")
+                }.padding(.bottom, 10)
+                .padding(.top, 10)
+                HStack(alignment: .firstTextBaseline , spacing: 1) {
+                    Text("Email: ")
+                        .fontWeight(.bold)
+                    Text("\(self.profileController.profile.email)")
+                    
+                }.padding(.bottom, 10)
+                HStack(alignment: .firstTextBaseline , spacing: 1) {
+                    Text("Phone: ")
+                        .fontWeight(.bold)
+                    Text("\(self.profileController.profile.contactNumber)")
+                }.padding(.bottom, 10)
+                HStack(alignment: .firstTextBaseline , spacing: 1) {
+                    Text("Car Plate: ")
+                        .fontWeight(.bold)
+                    Text("\(self.profileController.profile.carPlateNumber)")
+                }.padding(.bottom, 10)
+                
+                Spacer()
+                VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
+                    Button(action: {
+                        self.showEditProfileView = true
+                    }, label: {
+                        Text("Edit Profile")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 300, height: 40)
+                            .background(Color.yellow)
+                            .cornerRadius(10.0)
+                    }).sheet(isPresented: self.$showEditProfileView){
+                        EditProfileView().environmentObject(profileController)
+                    }
+                    Button(action: {
+                        self.showPasswordChangeView = true
+                    }, label: {
+                        Text("Change password")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 300, height: 40)
+                            .background(Color.yellow)
+                            .cornerRadius(10.0)
+                    }).sheet(isPresented: self.$showPasswordChangeView){
+                        UpdatePasswordView().environmentObject(profileController)
+                    }
+                    Button(action: {
+                        self.showDeleteProfilePopup.toggle()
+                    }, label: {
+                        Text("Delete Profile")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 300, height: 40)
+                            .background(Color.red)
+                            .cornerRadius(10.0)
+                            .padding(.bottom, 30)
+                    })
+                    
+                }
+            }
+            
+            
+            .navigationBarTitle("Profile", displayMode: .inline)
+            .navigationBarItems(trailing: Button(action:{
+                self.showPopover = true
+            }){
+                Text("Logout")
+            }).alert(isPresented: $showPopover) {
+                Alert(title: Text("Logout"), message: Text("Are you sure want to logout?"),  primaryButton: .default(Text("Yes"), action: {
+                    onLogout()
+                }), secondaryButton: .default(Text("No"), action: {
+                    self.showPopover = false
+                }))
             }
         }
         .alert(isPresented: $showDeleteProfilePopup) {
