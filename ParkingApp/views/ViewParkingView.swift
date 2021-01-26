@@ -92,7 +92,7 @@ struct ViewParkingView: View {
 //        }
         .alert(isPresented: $deletionCheck) {
             Alert(title: Text("Delete?"), message: Text("Are you sure want to delete this parking record? This action cannot be undone."),  primaryButton: .destructive(Text("Yes"), action: {
-                self.profileController.deleteParking(index: self.indexToDelete, email: self.email)
+                self.profileController.deleteParking(index: self.indexToDelete, id: self.profileController.profile.id!)
             }), secondaryButton: .default(Text("No"), action: {
                 self.deletionCheck = false
             }))
@@ -101,7 +101,7 @@ struct ViewParkingView: View {
             guard let email = UserDefaults.standard.string(forKey: "emailAddress") else {return}
             self.profileController.ParkingList = []
             self.email = email
-            self.profileController.fetchParkingListByEmail(email: self.email)
+            self.profileController.fetchParkingListOfUser(id: self.profileController.profile.id!)
             
         }
     }

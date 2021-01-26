@@ -45,6 +45,7 @@ struct DashboardView: View {
                 
                 TabView(selection: $selectedTab) {
                     
+                    
                     VStack{
                         AddParkingView().environmentObject(profileController)
                     }.onTapGesture {
@@ -53,6 +54,7 @@ struct DashboardView: View {
                         Image(systemName: "plus.viewfinder")
                         Text("Add Parking")
                     }.tag(0)
+                    
                     
                     
                     VStack{
@@ -66,6 +68,7 @@ struct DashboardView: View {
                         Text("View Parking")
                     }.tag(1)
                     
+                
                     VStack{
                         
                         ProfileView().environmentObject(profileController)

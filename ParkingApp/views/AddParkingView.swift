@@ -165,7 +165,7 @@ struct AddParkingView: View {
             
             print(newAddedParking)
             
-            let successfulAdd = self.profileController.addParkingToDatabase(email: email, newParking: newAddedParking)
+            let successfulAdd = self.profileController.addParkingToDatabase(id: self.profileController.profile.id!, newParking: newAddedParking)
             
             
             if(successfulAdd){
