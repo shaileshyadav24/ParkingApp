@@ -169,99 +169,103 @@ struct AddParkingView: View {
     var body: some View {
         
         NavigationView {
-        
-        VStack {
-            Form {
-                
-                
-                Section(header: Text("Building Code")) {
-                        TextField("Enter Building Code", text: $buildingCode)
-                            .keyboardType(.default)
-                            .foregroundColor(Color.white)
-                }
-                .foregroundColor(buildingCodeMissing == true ? Color.red : Color.white)
-                
-                
-                Section(header: Text("How many hours to you intend to park?")) {
-                    Picker("Hours:", selection: $hoursSelection) {
-                        ForEach(0..<self.parkingHoursList.count){
-                            Text("\(self.parkingHoursList[$0])")
+            VStack{
+                VStack {
+                    Form {
+                        
+                        
+                        Section(header: Text("Building Code")) {
+                                TextField("Enter Building Code", text: $buildingCode)
+                                    .keyboardType(.default)
+                                    .foregroundColor(Color.white)
                         }
+                        .foregroundColor(buildingCodeMissing == true ? Color.red : Color.white)
+                        
+                        
+                        Section(header: Text("How many hours to you intend to park?")) {
+                            Picker("Hours:", selection: $hoursSelection) {
+                                ForEach(0..<self.parkingHoursList.count){
+                                    Text("\(self.parkingHoursList[$0])")
+                                }
+                            }
+        //                    .pickerStyle(SegmentedPickerStyle())  // PICKER STYLE (Horizontal)
+                            //Picker
+                            
+                        }
+                        
+                        Section(header: Text("Car Plate Number")) {
+                            TextField("Enter Plate Number", text: $carPlate)
+                                .keyboardType(.default)
+                                .foregroundColor(Color.white)
+                                
+                        }
+                        .foregroundColor(carPlateMissing == true ? Color.red : Color.white)
+                        
+                        Section(header: Text("Suit Number of Host")) {
+                            TextField("Enter Suit Number", text: $suitNo)
+                                .keyboardType(.default)
+                                .foregroundColor(Color.white)
+                                
+                        }
+                        .foregroundColor(suitNoMissing == true ? Color.red : Color.white)
+                        
+                        Section(header: Text("Parking Location (Address)")) {
+                            Button(action: toggle){
+                                HStack{
+                                    Image(systemName: useLocationIsChecked ? "checkmark.square": "square")
+                                    Text("Use Current Location?")
+                                }
+                                .foregroundColor(Color.blue)
+
+                            }.alert(isPresented: $displayLocationAlert){
+                                Alert(title: Text("Hold up!"), message: Text("It looks like you haven't enabled use of location services! We can't find your location until you allow us to use your location! Please enable and try again."), dismissButton: .default(Text("Okay")))
+                            }
+                            TextField("Enter Parking Address", text: $parkingAddr)
+                                .keyboardType(.default)
+                                .disabled(useLocationIsChecked)
+                                .foregroundColor(disabledColor)
+                                
+                        }
+                        .foregroundColor(parkingAddrMissing == true ? Color.red : Color.white)
+                        
+                        Section(header: Text("Parking Date & Time (Skip for current time & date)")) {
+                            DatePicker("Parking Date & Time", selection: $parkingDateTime)
+                                
+                        }
+                        
+                        
+
+                        
                     }
-//                    .pickerStyle(SegmentedPickerStyle())  // PICKER STYLE (Horizontal)
-                    //Picker
                     
                 }
                 
-                Section(header: Text("Car Plate Number")) {
-                    TextField("Enter Plate Number", text: $carPlate)
-                        .keyboardType(.default)
-                        .foregroundColor(Color.white)
+                    Spacer()
+                    VStack{
+                        Button(action: {
+                            self.addParkingButtonPressed()
+                        }, label: {
+                            Text("Add Parking")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding(.top, 10)
+                                .padding(.bottom, 10)
+                                .frame(width: 300, height: 40)
+                                .background(Color.green)
+                                .cornerRadius(10.0)
+                        })
                         
-                }
-                .foregroundColor(carPlateMissing == true ? Color.red : Color.white)
-                
-                Section(header: Text("Suit Number of Host")) {
-                    TextField("Enter Suit Number", text: $suitNo)
-                        .keyboardType(.default)
-                        .foregroundColor(Color.white)
-                        
-                }
-                .foregroundColor(suitNoMissing == true ? Color.red : Color.white)
-                
-                Section(header: Text("Parking Location (Address)")) {
-                    Button(action: toggle){
-                        HStack{
-                            Image(systemName: useLocationIsChecked ? "checkmark.square": "square")
-                            Text("Use Current Location?")
+                        .alert(isPresented: $displayAddErrorAlert){
+                            Alert(title: Text(addErrorTitle ?? "There was a problem"), message: Text(addErrorDesc ?? "Unfortunately we were unable to determine the problem right now. Please try again."), dismissButton: .default(Text("Okay")))
                         }
-                        .foregroundColor(Color.blue)
-
-                    }.alert(isPresented: $displayLocationAlert){
-                        Alert(title: Text("Hold up!"), message: Text("It looks like you haven't enabled use of location services! We can't find your location until you allow us to use your location! Please enable and try again."), dismissButton: .default(Text("Okay")))
+                        
                     }
-                    TextField("Enter Parking Address", text: $parkingAddr)
-                        .keyboardType(.default)
-                        .disabled(useLocationIsChecked)
-                        .foregroundColor(disabledColor)
-                        
-                }
-                .foregroundColor(parkingAddrMissing == true ? Color.red : Color.white)
-                
-                Section(header: Text("Parking Date & Time (Skip for current time & date)")) {
-                    DatePicker("Parking Date & Time", selection: $parkingDateTime)
-                        
-                }
-                
-                
-
-                
-            }
-            Spacer()
-            Button(action: {
-                self.addParkingButtonPressed()
-            }, label: {
-                Text("Add Parking")
-                    .font(.title)
-                    .foregroundColor(.white)
-                    .padding(.top, 10)
-                    .padding(.bottom, 10)
-                    .frame(width: 300, height: 40)
-                    .background(Color.green)
-                    .cornerRadius(10.0)
-            }).alert(isPresented: $displayAddErrorAlert){
-                Alert(title: Text(addErrorTitle ?? "There was a problem"), message: Text(addErrorDesc ?? "Unfortunately we were unable to determine the problem right now. Please try again."), dismissButton: .default(Text("Okay")))
+                    
+                    Spacer()
             }
             .ignoresSafeArea(.keyboard)
-            Spacer()
+        
 
-            
-            
-            
-            
-            
-                            
-        }
             
         .navigationBarTitle("Add Parking", displayMode: .automatic)
             
