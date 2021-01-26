@@ -11,9 +11,18 @@ struct MapView: View {
     
     var ParkingInfo:Parking
     
+    @ObservedObject var locationManager = LocationManager()
+    var userLatitude: Double {
+            return Double(locationManager.lastLocation?.coordinate.latitude ?? 0)
+        }
+
+    var userLongitude: Double {
+        return Double(locationManager.lastLocation?.coordinate.longitude ?? 0)
+    }
+    
     
     var body: some View {
-        MapViewContentView(ParkingInfo: ParkingInfo)
+        MapViewContentView(ParkingInfo: ParkingInfo, userLatitude: userLatitude, userLongitude: userLongitude)
             .edgesIgnoringSafeArea(.all)
     }
 }
