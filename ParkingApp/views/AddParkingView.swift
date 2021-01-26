@@ -105,18 +105,50 @@ struct AddParkingView: View {
             
         }else {
             
-            self.email = self.profileController.profile.email
-            
-            if(!useLocationIsChecked){
-                getLocation(address: "\(parkingAddr)")
+            if(self.buildingCode.count == 5){
+                if(self.carPlate.count >= 2 && self.carPlate.count <= 8){
+                    
+                    
+                    if(self.suitNo.count >= 2 && self.suitNo.count <= 5) {
+                        self.email = self.profileController.profile.email
+                        
+                        if(!useLocationIsChecked){
+                            getLocation(address: "\(parkingAddr)")
+                        }
+                        
+                        if(useLocationIsChecked){
+                            continueUpload()
+                            couldFindCoords = true
+                        }
+                        else{
+                            print(#function, "Not using current location. now waiting for location search to come back.")
+                        }
+                    }
+                    
+                    else {
+                        addErrorTitle = "Hold up!"
+                        addErrorDesc = "Your car suit number is not valid. suit numbers are between 2 and 5 characters! \n\nPlease modify the suit number and try again."
+                        suitNoMissing = true
+                        
+                        displayAddErrorAlert = true
+                    }
+                    
+                    
+                }
+                else {
+                    addErrorTitle = "Hold up!"
+                    addErrorDesc = "Your car plate number is not valid. Car plate numbers are between 2 and 8 characters! \n\nPlease modify the plate number and try again."
+                    carPlateMissing = true
+                    
+                    displayAddErrorAlert = true
+                }
             }
-            
-            if(useLocationIsChecked){
-                continueUpload()
-                couldFindCoords = true
-            }
-            else{
-                print(#function, "Not using current location. now waiting for location search to come back.")
+            else {
+                addErrorTitle = "Hold up!"
+                addErrorDesc = "The building code you entered is not valid. Building codes are exactly 5 characters! \n\nPlease modify the building code and try again."
+                buildingCodeMissing = true
+                
+                displayAddErrorAlert = true
             }
             
             
@@ -174,7 +206,7 @@ struct AddParkingView: View {
                     Form {
                         
                         
-                        Section(header: Text("Building Code")) {
+                        Section(header: Text("Building Code (5 Characters)")) {
                                 TextField("Enter Building Code", text: $buildingCode)
                                     .keyboardType(.default)
                                     .foregroundColor(Color.white)
@@ -193,7 +225,7 @@ struct AddParkingView: View {
                             
                         }
                         
-                        Section(header: Text("Car Plate Number")) {
+                        Section(header: Text("Car Plate Number (2-8 Characters)")) {
                             TextField("Enter Plate Number", text: $carPlate)
                                 .keyboardType(.default)
                                 .foregroundColor(Color.white)
@@ -201,7 +233,7 @@ struct AddParkingView: View {
                         }
                         .foregroundColor(carPlateMissing == true ? Color.red : Color.white)
                         
-                        Section(header: Text("Suit Number of Host")) {
+                        Section(header: Text("Suit Number of Host (2-5 Characters)")) {
                             TextField("Enter Suit Number", text: $suitNo)
                                 .keyboardType(.default)
                                 .foregroundColor(Color.white)
