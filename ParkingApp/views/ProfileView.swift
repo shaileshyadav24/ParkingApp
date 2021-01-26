@@ -129,7 +129,7 @@ struct ProfileView: View {
                         UpdatePasswordView().environmentObject(profileController)
                     }
                     Button(action: {
-                        self.showDeleteProfilePopup = true
+                        self.showDeleteProfilePopup.toggle()
                     }, label: {
                         Text("Delete Profile")
                             .font(.title)
@@ -139,54 +139,8 @@ struct ProfileView: View {
                             .background(Color.red)
                             .cornerRadius(10.0)
                             .padding(.bottom, 30)
-                    }).alert(isPresented: $showDeleteProfilePopup) {
-                        Alert(title: Text("Delete"), message: Text("Are you sure want to delete your account? All details will be removed."),  primaryButton: .destructive(Text("Yes"), action: {
-                            self.showPasswordVerifyPopup.toggle()
-                        }), secondaryButton: .default(Text("No"), action: {
-                            self.showDeleteProfilePopup = false
-                        }))
-                    }.sheet(isPresented: self.$showPasswordVerifyPopup){
-                        Text("Verify User")
-                            .fontWeight(.bold)
-                            .font(.title)
-                            .padding(.top, 10)
-                        VStack{
-                            Form {
-                                Section(header: Text("Password"), content: {
-                                    SecureField("Please enter password",text: self.$currentPassword)
-                                })
-                            }
-                            Text(self.displayMessageString)
-                                .foregroundColor(self.isErrorMessage ? Color.red: Color.green)
-                                .opacity(self.isMessageAvailable ? 1 : 0)
-                            
-                            HStack {
-                                Button(action: {
-                                    self.initiateDeleteUser()
-                                }, label: {
-                                    Text("Submit")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                        .padding()
-                                        .frame(width: 150, height: 40)
-                                        .background(Color.green)
-                                        .cornerRadius(15.0)
-                                })
-                                Button(action: {
-                                    self.showPasswordVerifyPopup.toggle()
-                                }, label: {
-                                    Text("Cancel")
-                                        .font(.title)
-                                        .foregroundColor(.white)
-                                        .padding()
-                                        .frame(width: 150, height: 40)
-                                        .background(Color.red)
-                                        .cornerRadius(15.0)
-                                })
-                            }
-                            Spacer()
-                        }
-                    }
+                    })
+                    
                 }
             }
             
@@ -202,6 +156,54 @@ struct ProfileView: View {
                 }), secondaryButton: .default(Text("No"), action: {
                     self.showPopover = false
                 }))
+            }
+        }
+        .alert(isPresented: $showDeleteProfilePopup) {
+            Alert(title: Text("Delete"), message: Text("Are you sure want to delete your account? All details will be removed."),  primaryButton: .destructive(Text("Yes"), action: {
+                self.showPasswordVerifyPopup.toggle()
+            }), secondaryButton: .default(Text("No"), action: {
+                self.showDeleteProfilePopup = false
+            }))
+        }.sheet(isPresented: self.$showPasswordVerifyPopup){
+            Text("Verify User")
+                .fontWeight(.bold)
+                .font(.title)
+                .padding(.top, 10)
+            VStack{
+                Form {
+                    Section(header: Text("Password"), content: {
+                        SecureField("Please enter password",text: self.$currentPassword)
+                    })
+                }
+                Text(self.displayMessageString)
+                    .foregroundColor(self.isErrorMessage ? Color.red: Color.green)
+                    .opacity(self.isMessageAvailable ? 1 : 0)
+                
+                HStack {
+                    Button(action: {
+                        self.initiateDeleteUser()
+                    }, label: {
+                        Text("Submit")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 150, height: 40)
+                            .background(Color.green)
+                            .cornerRadius(15.0)
+                    })
+                    Button(action: {
+                        self.showPasswordVerifyPopup.toggle()
+                    }, label: {
+                        Text("Cancel")
+                            .font(.title)
+                            .foregroundColor(.white)
+                            .padding()
+                            .frame(width: 150, height: 40)
+                            .background(Color.red)
+                            .cornerRadius(15.0)
+                    })
+                }
+                Spacer()
             }
         }
         
