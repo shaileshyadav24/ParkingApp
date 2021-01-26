@@ -10,6 +10,8 @@ import CoreLocation
 
 struct AddParkingView: View {
     
+    @Environment(\.colorScheme) var colorScheme
+    
     @State private var email:String = ""
     @EnvironmentObject var profileController: ProfileController
     @State private var buildingCode:String = ""
@@ -57,7 +59,7 @@ struct AddParkingView: View {
         }
         else {
             self.parkingAddr = ""
-            self.disabledColor = Color.white
+            self.disabledColor = colorScheme == .dark ? Color.white : Color.black
         }
     }
     
@@ -209,9 +211,9 @@ struct AddParkingView: View {
                         Section(header: Text("Building Code (5 Characters)")) {
                                 TextField("Enter Building Code", text: $buildingCode)
                                     .keyboardType(.default)
-                                    .foregroundColor(Color.white)
+                                    .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                         }
-                        .foregroundColor(buildingCodeMissing == true ? Color.red : Color.white)
+                        .foregroundColor(buildingCodeMissing == true ? Color.red : colorScheme == .dark ? Color.white : Color.black)
                         
                         
                         Section(header: Text("How many hours to you intend to park?")) {
@@ -228,18 +230,18 @@ struct AddParkingView: View {
                         Section(header: Text("Car Plate Number (2-8 Characters)")) {
                             TextField("Enter Plate Number", text: $carPlate)
                                 .keyboardType(.default)
-                                .foregroundColor(Color.white)
+                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                 
                         }
-                        .foregroundColor(carPlateMissing == true ? Color.red : Color.white)
+                        .foregroundColor(carPlateMissing == true ? Color.red : colorScheme == .dark ? Color.white : Color.black)
                         
                         Section(header: Text("Suit Number of Host (2-5 Characters)")) {
                             TextField("Enter Suit Number", text: $suitNo)
                                 .keyboardType(.default)
-                                .foregroundColor(Color.white)
+                                .foregroundColor(colorScheme == .dark ? Color.white : Color.black)
                                 
                         }
-                        .foregroundColor(suitNoMissing == true ? Color.red : Color.white)
+                        .foregroundColor(suitNoMissing == true ? Color.red : colorScheme == .dark ? Color.white : Color.black)
                         
                         Section(header: Text("Parking Location (Address)")) {
                             Button(action: toggle){
@@ -258,7 +260,7 @@ struct AddParkingView: View {
                                 .foregroundColor(disabledColor)
                                 
                         }
-                        .foregroundColor(parkingAddrMissing == true ? Color.red : Color.white)
+                        .foregroundColor(parkingAddrMissing == true ? Color.red : colorScheme == .dark ? Color.white : Color.black)
                         
                         Section(header: Text("Parking Date & Time (Skip for current time & date)")) {
                             DatePicker("Parking Date & Time", selection: $parkingDateTime)

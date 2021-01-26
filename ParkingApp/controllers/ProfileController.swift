@@ -170,9 +170,10 @@ class ProfileController: ObservableObject {
     }
     
     func fetchParkingListByEmail(email:String) {
+        print(#function, "is running")
         
         self.store.collection(COLLECTION_ADDED_PARKING).document(email).collection(COLLECTION_PARKING_LIST).order(by: "date", descending: true).addSnapshotListener({ [self] (QuerySnapshot, error) in
-                
+            
                 guard let snapshot = QuerySnapshot else {
                     print(#function, "Error fetching snapshot results: ", error)
                     return
@@ -180,12 +181,12 @@ class ProfileController: ObservableObject {
                 
                 snapshot.documentChanges.forEach{ (doc) in
                     var parking = Parking()
-                    
                     do {
                         parking = try doc.document.data(as: Parking.self)!
                         
                         if doc.type == .added {
                             self.ParkingList.append(parking)
+                            
                         }
                         
                         if doc.type == .modified {
