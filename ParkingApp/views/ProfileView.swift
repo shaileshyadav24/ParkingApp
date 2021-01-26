@@ -21,6 +21,7 @@ struct ProfileView: View {
     @State private var displayMessageString: String = ""
     @State private var loggingOut = false
     @State private var showPopover = false
+    @State private var currentActiveSheet: ActiveSheet? = nil
     
     // New logout function
     func onLogout() {
@@ -49,7 +50,7 @@ struct ProfileView: View {
                 self.isMessageAvailable = true
                 self.displayMessageString = error.localizedDescription
             } else {
-                self.showPasswordVerifyPopup.toggle()
+                self.currentActiveSheet = nil
                 user?.delete { error in
                     if let error = error {
                         print("Error occurred", error)
@@ -102,7 +103,8 @@ struct ProfileView: View {
             Spacer()
             VStack(alignment: /*@START_MENU_TOKEN@*/.center/*@END_MENU_TOKEN@*/) {
                 Button(action: {
-                    self.showEditProfileView = true
+                    //                    self.showEditProfileView = true
+                    self.currentActiveSheet = .updateProfile
                 }, label: {
                     Text("Edit Profile")
                         .font(.title)
@@ -111,11 +113,9 @@ struct ProfileView: View {
                         .frame(width: 300, height: 40)
                         .background(Color.yellow)
                         .cornerRadius(10.0)
-                }).sheet(isPresented: self.$showEditProfileView){
-                    EditProfileView().environmentObject(profileController)
-                }
+                })
                 Button(action: {
-                    self.showPasswordChangeView = true
+                    self.currentActiveSheet = .updatePassword
                 }, label: {
                     Text("Change password")
                         .font(.title)
@@ -124,11 +124,9 @@ struct ProfileView: View {
                         .frame(width: 300, height: 40)
                         .background(Color.yellow)
                         .cornerRadius(10.0)
-                }).sheet(isPresented: self.$showPasswordChangeView){
-                    UpdatePasswordView().environmentObject(profileController)
-                }
+                })
                 Button(action: {
-                    self.showDeleteProfilePopup.toggle()
+                    self.showDeleteProfilePopup = true
                 }, label: {
                     Text("Delete Profile")
                         .font(.title)
@@ -144,54 +142,75 @@ struct ProfileView: View {
         }
         .alert(isPresented: $showDeleteProfilePopup) {
             Alert(title: Text("Delete"), message: Text("Are you sure want to delete your account? All details will be removed."),  primaryButton: .destructive(Text("Yes"), action: {
-                self.showPasswordVerifyPopup.toggle()
+                self.currentActiveSheet = .deleteAccount
             }), secondaryButton: .default(Text("No"), action: {
                 self.showDeleteProfilePopup = false
             }))
-        }.sheet(isPresented: self.$showPasswordVerifyPopup){
-            Text("Verify User")
-                .fontWeight(.bold)
-                .font(.title)
-                .padding(.top, 10)
-            VStack{
-                Form {
-                    Section(header: Text("Password"), content: {
-                        SecureField("Please enter password",text: self.$currentPassword)
-                    })
+        }
+        .sheet(item: self.$currentActiveSheet){ item in
+            switch item {
+            case .updatePassword:
+                UpdatePasswordView().environmentObject(profileController)
+            case .updateProfile:
+                EditProfileView().environmentObject(profileController)
+            case .deleteAccount:
+                Text("Verify User")
+                    .fontWeight(.bold)
+                    .font(.title)
+                    .padding(.top, 10)
+                VStack{
+                    Form {
+                        Section(header: Text("Password"), content: {
+                            SecureField("Please enter password",text: self.$currentPassword)
+                        })
+                    }
+                    Text(self.displayMessageString)
+                        .foregroundColor(self.isErrorMessage ? Color.red: Color.green)
+                        .opacity(self.isMessageAvailable ? 1 : 0)
+                    
+                    HStack {
+                        Button(action: {
+                            self.initiateDeleteUser()
+                        }, label: {
+                            Text("Submit")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(width: 150, height: 40)
+                                .background(Color.green)
+                                .cornerRadius(15.0)
+                        })
+                        Button(action: {
+                            self.currentActiveSheet = nil
+                            self.currentPassword = ""
+                        }, label: {
+                            Text("Cancel")
+                                .font(.title)
+                                .foregroundColor(.white)
+                                .padding()
+                                .frame(width: 150, height: 40)
+                                .background(Color.red)
+                                .cornerRadius(15.0)
+                        })
+                    }
+                    Spacer()
                 }
-                Text(self.displayMessageString)
-                    .foregroundColor(self.isErrorMessage ? Color.red: Color.green)
-                    .opacity(self.isMessageAvailable ? 1 : 0)
-                
-                HStack {
-                    Button(action: {
-                        self.initiateDeleteUser()
-                    }, label: {
-                        Text("Submit")
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 150, height: 40)
-                            .background(Color.green)
-                            .cornerRadius(15.0)
-                    })
-                    Button(action: {
-                        self.showPasswordVerifyPopup.toggle()
-                    }, label: {
-                        Text("Cancel")
-                            .font(.title)
-                            .foregroundColor(.white)
-                            .padding()
-                            .frame(width: 150, height: 40)
-                            .background(Color.red)
-                            .cornerRadius(15.0)
-                    })
-                }
-                Spacer()
             }
         }
-        
     }
+    
+    
+}
+
+enum ActiveSheet: Identifiable {
+    case updatePassword
+    case updateProfile
+    case deleteAccount
+    
+    
+     var id: Int {
+         hashValue
+     }
 }
 
 struct ProfileView_Previews: PreviewProvider {
