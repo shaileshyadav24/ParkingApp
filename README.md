@@ -7,4 +7,4 @@ Module: User Profile (Login, Registration, Update profile, Update password, Dele
 
 Name: Nathan Kennedy <br />
 Id: 101333351 <br />
-Module: Add Parking, View Parking, View Parking Details, MapView & MapViewContent <br />
+Modules: AddParkingView.swift, ViewParkingView.swift, ViewParkingDetailsView.swift, MapView.swift & MapViewContentView.swift, LocationController.swift <br />
