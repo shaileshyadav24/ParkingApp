@@ -115,8 +115,8 @@ struct MapViewContentView: UIViewRepresentable {
         }
         
 
-        mapView.isZoomEnabled = false
-        mapView.isScrollEnabled = false
+        mapView.isZoomEnabled = true
+        mapView.isScrollEnabled = true
         
         
         
@@ -128,11 +128,14 @@ struct MapViewContentView: UIViewRepresentable {
     func updateUIView(_ uiView: MKMapView, context: Context) {
         uiView.delegate = context.coordinator
         
-        let currentUsersLocation = CLLocationCoordinate2D(latitude: self.userLatitude, longitude: self.userLongitude)
-        let markersLocation = CLLocationCoordinate2D(latitude: self.ParkingInfo.parkingLat, longitude: self.ParkingInfo.parkingLon)
-        
         
         //MARK: CODE THAT USED TO MAKE POLYLINE, MOVED INTO OTHER FUNCTION
+        
+//        let currentUsersLocation = CLLocationCoordinate2D(latitude: self.userLatitude, longitude: self.userLongitude)
+//        let markersLocation = CLLocationCoordinate2D(latitude: self.ParkingInfo.parkingLat, longitude: self.ParkingInfo.parkingLon)
+        
+        
+        
 //        let req = MKDirections.Request()
 //        req.source = MKMapItem(placemark: MKPlacemark(coordinate: currentUsersLocation))
 //        req.destination = MKMapItem(placemark: MKPlacemark(coordinate: markersLocation))
@@ -154,7 +157,7 @@ struct MapViewContentView: UIViewRepresentable {
 //
 //
 //        }
-        
+        //MARK: END CODE THAT USED TO MAKE POLYLINE, MOVED INTO OTHER FUNCTION
         
     }
 }
